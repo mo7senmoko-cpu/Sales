@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>متابع المبيعات اليومية الاحترافي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0f17;
+  --card: rgba(22, 30, 46, 0.85);
+  --tx: #f8fafc;
+  --mu: #94a3b8;
+  --bd: rgba(255, 255, 255, 0.1);
+  --ac: #00d2ff;
+  --ac2: #3a7bd5;
+  --bad: #f43f5e;
+  --warn: #3b2f12;
+  --wt: #fcd34d;
+  --glass: blur(16px);
+  --sh: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --bc: rgba(255, 255, 255, 0.08);
+  color-scheme: dark;
+  box-sizing: border-box;
+}
+
+:root[data-theme="light"] {
+  --bg: #f1f5f9;
+  --card: rgba(255, 255, 255, 0.94);
+  --tx: #0f172a;
+  --mu: #64748b;
+  --bd: rgba(0, 0, 0, 0.1);
+  --ac: #0284c7;
+  --ac2: #0ea5e9;
+  --bad: #e11d48;
+  --warn: #fef3c7;
+  --wt: #92400e;
+  --glass: blur(16px);
+  --sh: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --bc: rgba(255, 255, 255, 0.8);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; transition: background 0.2s, border-color 0.2s, box-shadow 0.2s; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  padding-bottom: 30px;
+}
+main { max-width: 650px; margin: 0 auto; padding: 14px; }
+h1 {
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0;
+  background: linear-gradient(135deg, var(--tx), var(--ac));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:root {
+  --a1:#3b82f6; --a2:#8b5cf6; --a3:#0d9488; --a4:#f59e0b; --a5:#10b981; 
+  --a6:#ec4899; --a7:#64748b; --a8:#06b6d4; --a9:#e11d48; --a10:#84cc16;
+}
+
+.card {
+  --a: var(--ac);
+  background: var(--card);
+  backdrop-filter: var(--glass);
+  -webkit-backdrop-filter: var(--glass);
+  border: 1px solid var(--bc);
+  border-top: 4px solid var(--a);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--sh);
+}
+
+.ch2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--a);
+  font-size: 15px;
+  user-select: none;
+  padding-bottom: 6px;
+}
+.ch2 .cv {
+  transition: transform 0.3s;
+  font-size: 12px;
+  background: color-mix(in srgb, var(--a) 15%, transparent);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+.card.col .cv { transform: rotate(180deg); }
+.card.col > *:not(.ch2) { display: none !important; }
+.card.col { padding-bottom: 14px; }
+
+label { display: block; font-size: 13px; font-weight: 700; color: var(--mu); margin-bottom: 6px; }
+input, select {
+  width: 100%;
+  font: inherit;
+  color: var(--tx);
+  background: color-mix(in srgb, var(--bg) 50%, transparent);
+  border: 1.5px solid var(--bd);
+  border-radius: 12px;
+  padding: 11px 13px;
+  outline: none;
+  font-weight: 700;
+  -webkit-text-fill-color: var(--tx);
+  opacity: 1;
+}
+input:focus, select:focus {
+  border-color: var(--ac);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ac) 20%, transparent);
+  background: var(--card);
+}
+
+input[data-t], .card input[data-t] {
+  text-align: center !important;
+  font-weight: 800 !important;
+}
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+button {
+  font: inherit;
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, var(--ac), var(--ac2));
+  color: #fff !important;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 14px;
+  font-weight: 800;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--ac) 30%, transparent);
+}
+button:active { transform: scale(0.97); }
+
+.bar { height: 12px; background: var(--bd); border-radius: 99px; overflow: hidden; margin: 8px 0 4px; }
+.bar > i { display: block; height: 100%; width: 0; background: var(--ac); transition: width 0.4s; }
+
+.mu { color: var(--mu); font-size: 13px; font-weight: 600; }
+.sc { overflow-x: auto; border-radius: 12px; border: 1px solid var(--bd); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 10px 8px; text-align: center; border-bottom: 1px solid var(--bd); white-space: nowrap; }
+th { color: var(--mu); font-weight: 800; background: color-mix(in srgb, var(--bg) 70%, transparent); }
+td:first-child { text-align: right; }
+
+.x, .link { background: none !important; box-shadow: none !important; width: auto; margin: 0; padding: 4px 8px; font-weight: 800; cursor: pointer; }
+.x { color: var(--bad) !important; }
+.link { color: var(--ac) !important; }
+
+/* Status Badges */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.action-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: color-mix(in srgb, var(--bg) 40%, transparent);
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--bd);
+}
+
+.sel {
+  margin-inline-end: 8px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ac);
+  vertical-align: middle;
+}
+
+.cust-btn {
+  display: inline-block;
+  background: color-mix(in srgb, var(--ac) 14%, transparent) !important;
+  color: var(--tx) !important;
+  border: 1.5px solid color-mix(in srgb, var(--ac) 40%, transparent) !important;
+  padding: 5px 12px !important;
+  border-radius: 10px !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  text-align: right !important;
+  margin: 0 !important;
+}
+.cust-btn:hover, .cust-btn:active {
+  background: var(--ac) !important;
+  color: #ffffff !important;
+}
+
+.st { width: auto; min-width: 110px; padding: 6px 8px; font-size: 12px; border-radius: 10px; font-weight: 800; }
+.note { background: color-mix(in srgb, var(--warn) 25%, transparent); color: var(--wt); border-radius: 14px; padding: 12px; font-size: 13px; margin-top: 10px; font-weight: 700; border: 1px solid color-mix(in srgb, var(--wt) 30%, transparent); }
+
+/* Modals */
+.md { position: fixed; inset: 0; background: rgba(0,0,0,0.68); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
+.md.on { display: flex; }
+.mb { background: var(--bg); border: 1.5px solid var(--bd); border-radius: 20px; padding: 22px; width: 100%; max-width: 360px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+
+/* Item Cards */
+.ib {
+  --ic: var(--ac);
+  border: 1.5px solid color-mix(in srgb, var(--ic) 40%, var(--bd));
+  border-inline-start: 6px solid var(--ic);
+  background: color-mix(in srgb, var(--ic) 8%, var(--card));
+  border-radius: 14px;
+  padding: 12px;
+}
+.ib label { color: var(--ic); font-weight: 800; font-size: 14px; }
+.ib input {
+  text-align: center !important;
+  font-weight: 900 !important;
+  font-size: 20px !important;
+  color: var(--tx) !important;
+  -webkit-text-fill-color: var(--tx) !important;
+  background: color-mix(in srgb, var(--bg) 85%, #000) !important;
+  border: 2px solid color-mix(in srgb, var(--ic) 50%, var(--bd)) !important;
+  opacity: 1 !important;
+  padding: 10px !important;
+  border-radius: 12px !important;
+}
+
+.ib input.active-val {
+  background: color-mix(in srgb, var(--ic) 25%, var(--card)) !important;
+  color: var(--tx) !important;
+  -webkit-text-fill-color: var(--tx) !important;
+  border: 2.5px solid var(--ic) !important;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--ic) 50%, transparent) !important;
+}
+
+#offd {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  margin-top: 8px !important;
+}
+.off-day-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid var(--bd) !important;
+  padding: 5px 12px !important;
+  border-radius: 99px !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  background: color-mix(in srgb, var(--bg) 60%, transparent) !important;
+  color: var(--mu) !important;
+  width: auto !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+.off-day-btn.active {
+  background: var(--bad) !important;
+  color: #ffffff !important;
+  border-color: var(--bad) !important;
+  font-weight: 900 !important;
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4) !important;
+}
+
+.off-day-row {
+  background: color-mix(in srgb, var(--bad) 12%, transparent) !important;
+}
+.off-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: var(--bad);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  margin-inline-start: 6px;
+}
+
+.q-val {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 13px;
+}
+.q-val.has-q {
+  background: color-mix(in srgb, var(--ic) 20%, transparent);
+  color: var(--ic);
+  border: 1px solid color-mix(in srgb, var(--ic) 40%, transparent);
+}
+.q-val.zero-q {
+  color: var(--mu);
+  opacity: 0.35;
+  font-weight: 600;
+}
+
+.bx {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1.5px solid color-mix(in srgb, var(--bc, var(--a)) 50%, transparent);
+  background: color-mix(in srgb, var(--bc, var(--a)) 10%, transparent);
+  color: var(--bc, var(--a));
+  font-weight: 800;
+  font-size: 13px;
+}
+
+#alert-md,#md,#rsm{z-index:300}
+.stg{display:flex;flex-wrap:wrap;gap:6px}
+.stb{margin:0!important;width:auto!important;padding:7px 11px!important;font-size:12px!important;font-weight:800!important;border-radius:8px!important;border:1.5px solid var(--c)!important;color:var(--c)!important;background:transparent!important;box-shadow:none!important;cursor:pointer}
+.stb.on{background:var(--c)!important;color:var(--t)!important}
+#status[hidden]{display:none!important}
+.cp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.cp-box{border:1px solid var(--bd);border-radius:12px;padding:10px;background:color-mix(in srgb,var(--ac) 5%,transparent)}
+.cp-box b{display:block;font-size:17px;margin-top:2px}
+.cp-h{font-weight:800;margin:14px 0 8px;font-size:15px}
+.cp-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cp-chip{padding:4px 10px;border-radius:999px;border:1.5px solid var(--c,var(--bd));color:var(--c,var(--tx));font-weight:800;font-size:13px;background:color-mix(in srgb,var(--c,transparent) 10%,transparent)}
+.cp-m{display:grid;grid-template-columns:58px 1fr 112px;gap:8px;align-items:center;margin-bottom:6px;font-size:13px}
+.cp-bar{height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ac),color-mix(in srgb,var(--ac) 50%,#7c3aed))}
+.cp-o{border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:8px}
+.cp-o .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;font-weight:800}
+.cp-o select.st{width:100%}
+</style>
+</head>
+<body>
+<main>
+<header style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+  <h1>📈 متابع المبيعات اليومية</h1>
+  <div id="hdr-ctrl"><input type="month" id="month" style="width:auto;padding:6px 10px;font-size:13px"></div>
+</header>
+
+<aside class="note" id="svx" hidden style="margin:0 0 14px;border-color:var(--bad);color:var(--bad)">⚠️ تعذّر حفظ البيانات على الجهاز (التخزين ممتلئ أو ممنوع في المتصفح). حمّل نسخة JSON فوراً من آخر الصفحة عشان متضيعش.</aside>
+<aside class="note" id="bn" hidden style="margin:0 0 14px;cursor:pointer"></aside>
+
+<!-- Notifications & Follow-up Cards -->
+<div class="card" id="fup" hidden style="--a:var(--a2)" data-title="📅 متابعات اليوم والقريبة"></div>
+<div class="card" id="age" hidden style="--a:var(--a6)" data-title="⏳ حالات متأخرة المتابعة"></div>
+
+<!-- Card 1: Customer Search -->
+<div class="card" style="--a:var(--a1)" data-title="🔍 بحث عن عميل">
+  <label>اكتب اسم العميل أو جزء منه</label>
+  <input type="search" id="sq" placeholder="بحث بالاسم..." autocomplete="off">
+  <select id="sf" style="margin-top:10px"></select>
+  <div id="sr" style="margin-top:10px"></div>
+</div>
+
+<!-- Card 2: Targets & Items -->
+<div class="card" style="--a:var(--a3)" data-title="🎯 تارجت كل صنف (عدد القطع)">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div class="mu" style="font-weight:800">تارجت ومعدل تحقيق الشهر</div>
+    <button id="ei" class="link" style="border:1px solid var(--bd);border-radius:10px">✏️ الأصناف والموزعين</button>
+  </div>
+  <div id="itemsT"></div>
+  <div class="note" id="tn" hidden>لم يتم تحديد تارجت لهذا الشهر بعد. اضغط على أي خانة تارجت لتحدده.</div>
+</div>
+
+<!-- Card 3: Add / Edit Entry -->
+<div class="card" style="--a:var(--a4)" data-title="➕ إضافة / تعديل عميل لليوم">
+  <div class="note" id="eb" hidden style="margin:0 0 12px">أنت بتعدّل بيانات عميل. مفيش حاجة هتتغير إلا لما تضغط «حفظ التعديل».</div>
+  <label>التاريخ <span id="dnm" style="font-weight:800;margin-inline-start:6px"></span></label>
+  <input type="date" id="date">
+
+  <label style="margin-top:14px">اسم العميل <span style="color:var(--bad)">*</span></label>
+  <input type="text" id="cust" placeholder="اكتب اسم العميل بالكامل" list="cl" autocomplete="on" autocapitalize="words" spellcheck="false"><datalist id="cl"></datalist>
+
+  <label style="margin-top:14px">الموزع</label>
+  <select id="distributor" style="display:none"></select>
+  <div id="dbx" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+
+  <label style="margin-top:14px">الحالة</label>
+  <div id="stbx" class="stg"></div>
+  <select id="status" hidden></select>
+  <input type="text" id="rs" placeholder="السبب (اختياري)" hidden style="margin-top:10px">
+
+  <label style="margin-top:14px">ملاحظة (اختياري)</label>
+  <input type="text" id="note" placeholder="رقم تليفون، طلب خاص...">
+  
+  <label style="margin-top:14px">موعد متابعة (اختياري)</label>
+  <input type="date" id="fu">
+  
+  <label style="margin-top:14px;font-weight:800">الكميات المطلوبة</label>
+  <div class="row" id="inputs" style="margin-top:8px"></div>
+  
+  <button id="add" style="margin-top:16px">إضافة العميل لليوم</button>
+  <button id="cc" class="link" hidden style="width:100%;border:1px solid var(--bad);margin-top:10px;padding:12px;color:var(--bad)!important;border-radius:12px">إلغاء التعديل</button>
+</div>
+
+<!-- Card 4: Selected Day Sales -->
+<div class="card" style="--a:var(--a5)" data-title="📋 مبيعات اليوم المختار">
+  <input type="text" id="dnt" placeholder="ملاحظة لليوم كله (إجازة، عطل...)" style="margin-bottom:10px">
+  <div id="day"></div>
+  <button id="xlb" style="margin-top:14px;background:linear-gradient(135deg, #16a34a, #22c55e)">📥 إصدار شيت الطلبات (Excel)</button>
+  <div class="mu" id="xlm" style="margin-top:8px;min-height:18px;font-weight:800;text-align:center"></div>
+</div>
+
+<!-- Card 5: Range Sales -->
+<div class="card" style="--a:var(--a8)" data-title="🗓️ مبيعات فترة محددة">
+  <div class="row">
+    <div><label>من <span id="fdn" style="color:var(--a);font-weight:800"></span></label><input type="date" id="from"></div>
+    <div><label>إلى <span id="tdn" style="color:var(--a);font-weight:800"></span></label><input type="date" id="to"></div>
+  </div>
+  <div id="rng" style="margin-top:14px"></div>
+</div>
+
+<!-- Card 6: Lost Customers (NEW COLLAPSIBLE CARD) -->
+<div class="card" style="--a:var(--a9)" data-title="💔 1. عملاء اشتروا الشهر السابق ولسه مشتروش">
+  <div id="lost"></div>
+</div>
+
+<!-- Card 7: Month Comparison (NEW COLLAPSIBLE CARD) -->
+<div class="card" style="--a:var(--a2)" data-title="📊 2. مقارنة بالشهر السابق">
+  <div id="cmp"></div>
+</div>
+
+<!-- Card 8: Distributor Sales (NEW COLLAPSIBLE CARD) -->
+<div class="card" style="--a:var(--a10)" data-title="🏬 3. مبيعات كل موزع">
+  <div id="dist-rep"></div>
+</div>
+
+<!-- Card 9: Top Customers (NEW COLLAPSIBLE CARD) -->
+<div class="card" style="--a:var(--a6)" data-title="👑 4. أكثر العملاء شراءً">
+  <div id="top-cust"></div>
+</div>
+
+<!-- Card 10: Backup & Settings -->
+<div class="card" id="bk" style="--a:var(--a7)" data-title="⚙️ نسخة احتياطية وإعدادات النظام">
+  <div class="row">
+    <button id="exj" style="margin-top:0">نسخة JSON</button>
+    <button id="exc" style="margin-top:0;background:linear-gradient(135deg, #16a34a, #22c55e)">تحميل CSV (يفتح في Excel)</button>
+  </div>
+  <button id="imp" class="link" style="width:100%;border:1px solid var(--ac);margin-top:12px;padding:12px;border-radius:12px;background:color-mix(in srgb,var(--ac) 10%,transparent)!important">استرجاع من نسخة احتياطية</button>
+  <input type="file" id="fl" accept=".json,application/json" hidden>
+  
+  <div style="border-top:1px dashed var(--bd);margin-top:18px;padding-top:16px">
+    <div class="mu" style="font-weight:800">أيام الإجازة الأسبوعية</div>
+    <div id="offd"></div>
+  </div>
+
+  <div style="border-top:1px dashed var(--bd);margin-top:18px;padding-top:16px">
+    <div class="mu" style="margin-bottom:10px;font-weight:800">تغيير باسوورد الحماية</div>
+    <div class="row" style="margin-top:0">
+      <input type="password" id="npw" placeholder="باسوورد جديد" inputmode="numeric">
+      <button id="cpw" style="margin-top:0">حفظ الباسوورد</button>
+    </div>
+    
+    <details style="margin-top:16px"><summary class="mu" style="cursor:pointer;font-weight:800">⚙️ خيارات متقدمة</summary>
+    <div style="margin-top:10px;background:color-mix(in srgb,var(--bg) 60%,transparent);padding:14px;border-radius:14px;border:1px solid var(--bd)">
+      <label style="color:var(--bad);font-weight:800">أرشفة البيانات (حذف يدوي ومخصص)</label>
+      <div class="row" style="margin-top:8px">
+        <select id="arc-months">
+          <option value="1">أقدم من شهر</option>
+          <option value="2">أقدم من شهرين</option>
+          <option value="3" selected>أقدم من 3 شهور</option>
+          <option value="6">أقدم من 6 شهور</option>
+          <option value="12">أقدم من سنة</option>
+        </select>
+        <button id="arc" class="x" style="border:1px solid var(--bad);margin-top:0;padding:10px;background:color-mix(in srgb,var(--bad) 15%,transparent)!important;border-radius:12px">تنفيذ الأرشفة</button>
+      </div>
+    </div></details>
+  </div>
+  <div class="mu" id="bm" style="margin-top:12px;min-height:20px;font-weight:800;text-align:center"></div>
+</div>
+</main>
+
+<!-- Modals -->
+<div class="md" id="alert-md">
+  <div class="mb">
+    <b id="alert-title" style="font-size:18px;display:block;margin-bottom:8px">تنبيه</b>
+    <div class="mu" id="alert-msg" style="margin-bottom:16px;font-size:14px;color:var(--tx)"></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button id="alert-cancel" class="link" style="border:1px solid var(--bd);padding:8px 16px;border-radius:10px">إلغاء</button>
+      <button id="alert-ok" style="margin:0;width:auto;padding:8px 20px;border-radius:10px">موافق</button>
+    </div>
+  </div>
+</div>
+
+<div class="md" id="rsm">
+  <div class="mb">
+    <b id="rsm-t" style="font-size:16px;display:block;margin-bottom:10px"></b>
+    <input type="text" id="rsm-i" placeholder="السبب (اختياري)" autocomplete="off">
+    <div class="row" style="margin-top:6px">
+      <button id="rsm-ok">حفظ</button>
+      <button id="rsm-no" class="link" style="border:1px solid var(--bd);border-radius:12px">تخطي</button>
+    </div>
+  </div>
+</div>
+
+<div class="md" id="md">
+  <div class="mb">
+    <label style="font-size:15px;font-weight:800">ادخل باسوورد التأكيد</label>
+    <input type="password" id="pw" inputmode="numeric" maxlength="12" autocomplete="off" style="margin-top:8px">
+    <div class="mu" id="pe" style="color:var(--bad);min-height:22px;margin-top:6px;font-weight:700"></div>
+    <div class="row" style="align-items:center;margin-top:10px">
+      <button id="pok">تأكيد</button>
+      <button id="pno" class="link">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="md" id="cm">
+  <div class="mb" style="max-width:540px;max-height:85vh;overflow:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <b id="cn" style="font-size:20px;color:var(--ac)"></b>
+      <button id="cx" class="link" style="font-size:16px">✕ إغلاق</button>
+    </div>
+    <div id="cb"></div>
+  </div>
+</div>
+
+<div class="md" id="im">
+  <div class="mb" style="max-width:440px;max-height:85vh;overflow:auto">
+    <b style="font-size:18px">تعديل الأصناف والموزعين</b>
+    <div class="mu" style="margin:4px 0 10px">الحذف بيخفي الصنف من كل الشهور.</div>
+    <div id="il"></div>
+    <div class="row" style="margin-top:10px"><input id="ni" placeholder="اسم صنف جديد"><button id="na" style="margin-top:0">إضافة</button></div>
+    <div class="mu" style="margin:14px 0 6px;font-weight:800">الموزعين</div>
+    <div id="dl"></div>
+    <div class="row"><input id="nd" placeholder="اسم موزع جديد"><button id="nda" style="margin-top:0">إضافة</button></div>
+    <div class="row" style="margin-top:16px"><button id="is">حفظ التغييرات</button><button id="ic" class="link" style="border:1px solid var(--bd);border-radius:12px">إلغاء</button></div>
+  </div>
+</div>
+
+<script>
+function uiAlert(msg, title = "تنبيه") {
+  document.getElementById("alert-title").textContent = title;
+  document.getElementById("alert-msg").textContent = msg;
+  document.getElementById("alert-cancel").style.display = "none";
+  document.getElementById("alert-ok").onclick = () => document.getElementById("alert-md").classList.remove("on");
+  document.getElementById("alert-md").classList.add("on");
+}
+
+function uiConfirm(msg, onOk, title = "تأكيد") {
+  document.getElementById("alert-title").textContent = title;
+  document.getElementById("alert-msg").textContent = msg;
+  document.getElementById("alert-cancel").style.display = "inline-block";
+  document.getElementById("alert-ok").onclick = () => {
+    document.getElementById("alert-md").classList.remove("on");
+    if (onOk) onOk();
+  };
+  document.getElementById("alert-cancel").onclick = () => document.getElementById("alert-md").classList.remove("on");
+  document.getElementById("alert-md").classList.add("on");
+}
+
+const ST=["تم الطباعة","جاري الطباعة","بندنج"];
+const DEF=["ديلبي","اريكتاليس","امبروبرو","بنتامولفين"];
+const DN=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+const KEY="sales_tracker_v1";
+
+let S={itemTargets:{},days:{},items:null,dists:null,lastBackup:0,password:"0000"};
+let rawSaved=null;
+try{
+  rawSaved=localStorage.getItem(KEY);
+  if(rawSaved){
+    const p=JSON.parse(rawSaved);
+    if(p&&p.days)S=Object.assign(S,p);
+  }
+}catch(e){
+  /* بيانات تالفة: نحتفظ بنسخة منها بدل ما تتمسح عند أول حفظ */
+  try{if(rawSaved)localStorage.setItem(KEY+"_corrupt_"+Date.now(),rawSaved)}catch(e2){}
+}
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+
+if(!S.items)S.items=DEF.map(n=>({n}));
+function normSt(){let n=0;Object.keys(S.days).forEach(k=>(S.days[k]||[]).forEach(c=>{if(!ST.includes(c.s)){c.s="بندنج";n++}}));return n}
+if(!S.dists)S.dists=["Ibs","Pos","Epda","Ucp","Kareem"];
+if(!S.off)S.off=[5];
+const PH=s=>{let h1=0xdeadbeef^7,h2=0x41c6ce57^7;s="st|"+s+"|pw";for(let i=0,c;i<s.length;i++){c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)};
+if(!S.pwh)S.pwh=PH(S.password||"0000");
+delete S.password;
+if(!S.addedMisr){if(!S.dists.includes("المصرية"))S.dists.push("المصرية");S.addedMisr=1}
+if(!S.dayNotes)S.dayNotes={};
+
+const $=id=>document.getElementById(id);
+const save=()=>{
+  let ok=true;
+  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){ok=false}
+  const w=document.getElementById("svx");if(w)w.hidden=ok;
+  return ok;
+};
+const fmt=n=>Number(n||0).toLocaleString("en-US");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sum=a=>a.reduce((x,y)=>x+(y||0),0);
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const dn=k=>{const d=new Date(k+"T00:00:00");return isNaN(d)?"":DN[d.getDay()]};
+const isOffDay=k=>{const d=new Date(k+"T00:00:00");return !isNaN(d)&&S.off.includes(d.getDay())};
+const sl=()=>S.items.map((_,i)=>i).filter(i=>!S.items[i].x);
+const nm=i=>esc(S.items[i].n);
+const Z=()=>S.items.map(()=>0);
+const IC=["#00d2ff","#d97706","#16a34a","#7c3aed","#dc2626","#0891b2","#db2777","#65a30d"];
+const icol=i=>IC[i%IC.length];
+
+const th=()=>sl().map(i=>'<th style="color:'+icol(i)+'">'+nm(i)+"</th>").join("");
+const tds=q=>sl().map(i=>{
+  const val=q[i]||0;
+  return '<td><span class="q-val '+(val>0?'has-q':'zero-q')+'" style="--ic:'+icol(i)+'">'+(val>0?fmt(val):'0')+'</span></td>';
+}).join("");
+
+const stOpts=v=>(v?"":'<option value="" selected>— اختر —</option>')+ST.map(s=>"<option"+(s===v?" selected":"")+">"+s+"</option>").join("");
+const stSel=(k,i,v)=>'<div class="stg">'+ST.map(s=>'<button type="button" class="stb'+(s===v?" on":"")+'" data-k="'+k+'" data-i="'+i+'" data-st="'+s+'" style="--c:'+SC[s]+';--t:'+SCT[s]+'">'+s+'</button>').join("")+'</div>';
+
+let today=new Date();
+$("date").value=iso(today);
+$("month").value=iso(today).slice(0,7);
+$("status").innerHTML=stOpts(ST[0]);
+$("sf").innerHTML='<option value="">كل الحالات</option>'+ST.map(s=>"<option>"+s+"</option>").join("");
+
+const distOpts=v=>{const l=S.dists.slice();if(v&&!l.includes(v))l.push(v);return l.map(d=>"<option>"+esc(d)+"</option>").join("")};
+const PAL=["#00d2ff","#d97706","#16a34a","#7c3aed","#dc2626","#0891b2","#db2777","#65a30d","#475569"];
+const okc=c=>{if(!/^#[0-9a-f]{6}$/i.test(c||""))return false;const r=parseInt(c.slice(1,3),16),g=parseInt(c.slice(3,5),16),b=parseInt(c.slice(5,7),16);return .299*r+.587*g+.114*b<190};
+function dcol(d){S.dcol=S.dcol||{};if(!okc(S.dcol[d])){const u=Object.entries(S.dcol).filter(([k,v])=>k!==d&&okc(v)).map(x=>x[1]);S.dcol[d]=PAL.find(c=>!u.includes(c))||PAL[Object.keys(S.dcol).length%PAL.length];save()}return S.dcol[d]}
+function dtag(d){return d?'<span style="display:inline-block;padding:3px 10px;border-radius:8px;background:linear-gradient(135deg, '+dcol(d)+', color-mix(in srgb,'+dcol(d)+' 80%,#000));color:#fff;font-size:12px;font-weight:800">'+esc(d)+'</span>':""}
+
+function colorDist(){const s=$("distributor"),v=s.value;$("dbx").innerHTML=[...s.options].map(o=>{const c=dcol(o.value),on=o.value===v;return '<div role="button" tabindex="0" data-db="'+esc(o.value)+'" style="cursor:pointer;padding:8px 14px;border-radius:12px;border:2px solid '+c+';font-weight:800;font-size:13px;'+(on?'background:linear-gradient(135deg,'+c+',color-mix(in srgb,'+c+' 80%,#000));color:#fff;box-shadow:0 4px 12px color-mix(in srgb,'+c+' 40%,transparent)':'background:color-mix(in srgb,'+c+' 10%,transparent);color:'+c)+'">'+esc(o.value)+'</div>'}).join("")}
+$("dbx").addEventListener("click",e=>{const b=e.target.closest("[data-db]");if(!b)return;$("distributor").value=b.dataset.db;colorDist()});
+S.dists.forEach(d=>dcol(d));
+function buildDist(v){$("distributor").innerHTML=distOpts(v);if(v)$("distributor").value=v;colorDist()}
+$("distributor").addEventListener("change",colorDist);
+buildDist();
+
+const wd=(a,b)=>{let n=0;for(let d=a;d<=b;d++)if(!S.off.includes(new Date(today.getFullYear(),today.getMonth(),d).getDay()))n++;return n};
+const need=r=>{if($("month").value!==iso(today).slice(0,7)||r<=0)return "";const left=Math.max(1,wd(today.getDate(),new Date(today.getFullYear(),today.getMonth()+1,0).getDate()));return " · محتاج "+fmt(Math.ceil(r/left))+" يومياً"};
+
+let unlocked=false,pcb=null,ed=null;
+const box=$("inputs"),IT=$("itemsT");
+const vals=()=>{const a=Z();box.querySelectorAll("[data-v]").forEach(i=>a[+i.dataset.v]=parseInt(i.value,10)||0);return a};
+function setEd(v){ed=v;$("add").textContent=v?"حفظ التعديل":"إضافة العميل لليوم";$("cc").hidden=!v;$("eb").hidden=!v}
+const clearForm=()=>{$("cust").value="";$("note").value="";$("fu").value="";buildDist();$("rs").value="";$("status").innerHTML=stOpts(ST[0]);syncRs();box.querySelectorAll("[data-v]").forEach(i=>{i.value="";highlightInput(i);})};
+
+function highlightInput(inp) {
+  const val = parseInt(inp.value, 10) || 0;
+  if (val > 0) inp.classList.add("active-val");
+  else inp.classList.remove("active-val");
+}
+
+function buildForms(){
+  box.innerHTML=sl().map(i=>'<div class="ib" style="--ic:'+icol(i)+'"><label>'+nm(i)+'</label><div style="margin-top:6px"><input type="number" inputmode="numeric" min="0" step="1" data-v="'+i+'" placeholder="0" style="text-align:center;font-weight:900;font-size:20px;width:100%"></div></div>').join("");
+  IT.innerHTML=sl().map(i=>'<div class="ib" style="margin-bottom:12px;--ic:'+icol(i)+'"><div style="display:flex;gap:8px;align-items:center;justify-content:space-between"><b style="color:var(--ic);font-size:15px">'+nm(i)+'</b><input type="number" inputmode="numeric" min="0" step="1" data-t="'+i+'" '+(unlocked?"":"readonly")+' placeholder="التارجت" style="width:110px;text-align:center;font-weight:800;font-size:16px"></div><div class="bar"><i id="if'+i+'"></i></div><div class="mu" id="ip'+i+'"></div></div>').join("");
+}
+
+box.addEventListener("input", e=>{ if(e.target.dataset.v !== undefined) highlightInput(e.target); });
+
+function askPass(cb){pcb=cb;$("pw").value="";$("pe").textContent="";$("md").classList.add("on");setTimeout(()=>$("pw").focus(),50)}
+function closeP(){$("md").classList.remove("on");pcb=null}
+$("pok").addEventListener("click",()=>{
+  if(PH($("pw").value)===S.pwh){const f=pcb;closeP();if(f)f()}
+  else{$("pe").textContent="الباسوورد غير صحيح";$("pw").value=""}
+});
+$("pno").addEventListener("click",closeP);
+$("pw").addEventListener("keydown",e=>{if(e.key==="Enter")$("pok").click()});
+IT.addEventListener("click",e=>{
+  const el=e.target;
+  if(unlocked||el.dataset.t===undefined)return;
+  askPass(()=>{unlocked=true;IT.querySelectorAll("[data-t]").forEach(i=>i.readOnly=false);el.focus()});
+});
+
+IT.addEventListener("input",e=>{
+  const el=e.target;
+  if(el.dataset.t===undefined||el.readOnly)return;
+  const m=$("month").value;if(!m)return;
+  const i=+el.dataset.t,n=Math.max(0,parseInt(el.value,10)||0);
+  const tg=S.itemTargets[m]=S.itemTargets[m]||[];
+  while(tg.length<S.items.length)tg.push(0);
+  tg[i]=n;
+  save();renderItems();
+});
+const monthKeys=()=>Object.keys(S.days).filter(k=>k.startsWith($("month").value)).sort();
+const dayTotals=k=>{const t=Z();(S.days[k]||[]).forEach(c=>c.q.forEach((x,i)=>t[i]=(t[i]||0)+(x||0)));return t};
+
+function renderItems(){
+  const m=$("month").value,keys=monthKeys();
+  const tg=S.itemTargets[m]||[];
+  const tot=Z();
+  keys.forEach(k=>dayTotals(k).forEach((x,i)=>tot[i]+=x));
+  $("tn").hidden=sum(tg)>0;
+  sl().forEach(i=>{
+    const s=tot[i],t=tg[i]||0;
+    const inp=IT.querySelector('[data-t="'+i+'"]');
+    if(document.activeElement!==inp)inp.value=t||"";
+    {const b=$("if"+i),p=t>0?s/t*100:0;b.style.width=Math.min(100,p)+"%";b.style.background=t>0?(p>=100?"#16a34a":p>=50?"#d97706":"#dc2626"):""}
+    $("ip"+i).textContent=t>0?"المباع: "+fmt(s)+" من "+fmt(t)+" ("+fmt(Math.round(s/t*100))+"%) · باقي "+fmt(Math.max(0,t-s))+need(t-s):"المباع "+fmt(s)+" · حدد التارجت";
+  });
+}
+
+document.addEventListener("click", e => {
+  const cBtn = e.target.closest("[data-c]");
+  if (cBtn) {
+    e.preventDefault();
+    const cName = cBtn.dataset.c;
+    if (cName) showCust(cName);
+  }
+});
+
+$("dnt").addEventListener("input", () => {
+  const d = $("date").value;
+  if (!d) return;
+  S.dayNotes[d] = $("dnt").value;
+  save();
+});
+
+let rsCb=null;
+function askReason(title,cur,cb){
+  rsCb=cb;$("rsm-t").textContent=title;$("rsm-i").value=cur||"";
+  $("rsm").classList.add("on");setTimeout(()=>$("rsm-i").focus(),50);
+}
+function closeReason(save_){
+  const cb=rsCb;rsCb=null;const v=$("rsm-i").value.trim();
+  $("rsm").classList.remove("on");
+  if(cb&&save_)cb(v);
+}
+$("rsm-ok").addEventListener("click",()=>closeReason(true));
+$("rsm-no").addEventListener("click",()=>closeReason(false));
+$("rsm-i").addEventListener("keydown",e=>{if(e.key==="Enter")closeReason(true)});
+
+document.addEventListener("change", e => {
+  if (e.target.classList.contains("st") && e.target.dataset.k !== undefined) {
+    const k = e.target.dataset.k;
+    const i = +e.target.dataset.i;
+    const val = e.target.value;
+    if (S.days[k] && S.days[k][i]) {
+      const rec = S.days[k][i];
+      rec.s = val;
+      const needR = (val === "تم الرفض" || val === "تم التأجيل");
+      if (!needR) rec.r = "";
+      save();
+      renderFast();
+      if ($("sf") && $("sf").value) renderSearch();
+      refreshCust();
+      if (needR) {
+        askReason("سبب " + val + " (اختياري)", rec.r || "", v => {
+          rec.r = v; save(); renderFast();
+          if ($("sf") && $("sf").value) renderSearch();
+          refreshCust();
+        });
+      }
+    }
+  }
+});
+
+/* تغيير الحالة لعدة عملاء مرة واحدة */
+$("day").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  const d = $("date").value, list = S.days[d] || [];
+  if (b.id === "bl") {
+    const boxes = [...$("day").querySelectorAll(".sel")];
+    const all = boxes.length && boxes.every(x => x.checked);
+    boxes.forEach(x => x.checked = !all);
+    b.textContent = all ? "تحديد الكل" : "إلغاء التحديد";
+    return;
+  }
+  if (b.id === "ba") {
+    const idx = [...$("day").querySelectorAll(".sel:checked")].map(x => +x.dataset.s).filter(i => list[i]);
+    if (!idx.length) { uiAlert("اختار عميل واحد على الأقل الأول."); return; }
+    const val = $("bs").value;
+    if (!val) { uiAlert("اختار الحالة الأول."); return; }
+    const recs = idx.map(i => list[i]);
+    const needR = (val === "تم الرفض" || val === "تم التأجيل");
+    recs.forEach(r => { r.s = val; if (!needR) r.r = ""; });
+    save(); renderFast();
+    if ($("sf") && $("sf").value) renderSearch();
+    if (needR) {
+      askReason("سبب " + val + " لـ " + fmt(recs.length) + " عميل (اختياري)", "", v => {
+        recs.forEach(r => r.r = v); save(); renderFast();
+        if ($("sf") && $("sf").value) renderSearch();
+      });
+    }
+  }
+});
+
+function renderDay(){
+  const d=$("date").value,list=S.days[d]||[];
+  const off = isOffDay(d);
+  
+  $("dnm").innerHTML = d ? (dn(d) + (off ? '<span class="off-badge">إجازة 🌴</span>' : '')) : "";
+  if(off) $("dnm").style.color = "var(--bad)";
+  else $("dnm").style.color = "var(--ac)";
+  
+  if(document.activeElement!==$("dnt"))$("dnt").value=S.dayNotes[d]||"";
+  if(!list.length){$("day").innerHTML='<div class="mu" style="padding:16px 0;text-align:center">لا يوجد عملاء في هذا اليوم</div>';return}
+  
+  const cnt=ST.map(s=>list.filter(c=>c.s===s).length),un=list.filter(c=>!c.s).length;
+  let h='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">'+ST.map((s,i)=>'<span class="chip" style="border:1px solid '+SC[s]+';color:'+SC[s]+'">'+s+': <b>'+fmt(cnt[i])+'</b></span>').join("")+(un?'<span class="chip" style="border:1px solid var(--mu);color:var(--mu)">بدون حالة: <b>'+fmt(un)+'</b></span>':"")+'</div>';
+  
+  h+='<div class="action-bar"><select id="bs" class="st" style="margin:0">'+stOpts(ST[0])+'</select><button id="ba" class="link" style="border:1px solid var(--ac);background:color-mix(in srgb,var(--ac) 15%,transparent)!important;border-radius:10px;padding:6px 14px">تطبيق التغيير</button><button id="bl" class="link" style="border:1px solid var(--bd);border-radius:10px;padding:6px 14px">تحديد الكل</button></div>';
+  
+  h+='<div class="sc"><table><tr><th>العميل</th><th>الموزع</th><th>الحالة</th>'+th()+"<th>إجراءات</th></tr>";
+  const tot=Z();
+  list.forEach((c,i)=>{
+    c.q.forEach((x,k)=>tot[k]=(tot[k]||0)+(x||0));
+    h+='<tr><td style="text-align:right"><div style="display:flex;align-items:center;gap:6px"><input type="checkbox" class="sel" data-s="'+i+'"><button type="button" class="cust-btn" data-c="'+esc(c.n)+'">👤 '+esc(c.n)+'</button></div>'+(c.t?'<div class="mu" style="margin-top:2px">'+esc(c.t)+'</div>':'')+(c.f?'<div class="mu">متابعة: '+c.f.slice(5)+' · '+dn(c.f)+'</div>':'')+'</td><td>'+dtag(c.d||"Ibs")+'</td><td>'+stSel(d,i,c.s||"")+(c.r?'<div class="mu">'+esc(c.r)+'</div>':'')+'</td>'+tds(c.q)+'<td><button class="link" data-ed="'+i+'">تعديل</button><button class="x" data-del="'+i+'">✕</button></td></tr>';
+  });
+  h+='<tr class="ft"><td>الإجمالي ('+fmt(list.length)+' عميل)</td><td></td><td></td>'+tds(tot)+"<td></td></tr></table></div>";
+  $("day").innerHTML=h;
+}
+
+let rngOpen=new Set(),rngItem=null;
+function renderRange(){
+  const f=$("from").value,t=$("to").value,el=$("rng");$("fdn").textContent=f?"("+dn(f)+")":"";$("tdn").textContent=t?"("+dn(t)+")":"";
+  if(!f||!t){el.innerHTML='<div class="mu">اختار تاريخ البداية والنهاية</div>';return}
+  const a=f<=t?f:t,b=f<=t?t:f;
+  const keys=Object.keys(S.days).filter(k=>k>=a&&k<=b).sort();
+  if(!keys.length){el.innerHTML='<div class="mu">لا توجد مبيعات في هذه الفترة</div>';return}
+  const tot=Z(),cust={},cd={},dist={},days=[],cc=Z();
+  keys.forEach(k=>{
+    const d=Z();
+    S.days[k].forEach(c=>{
+      const o=cust[c.n]=cust[c.n]||Z();
+      dist[c.n]=c.d||"Ibs";
+      (cd[c.n]=cd[c.n]||new Set()).add(k);
+      c.q.forEach((x,i)=>{d[i]+=x||0;tot[i]+=x||0;o[i]=(o[i]||0)+(x||0);if(x>0)cc[i]++});
+    });
+    days.push([k,S.days[k].length,d]);
+  });
+  let h='<div class="mu" style="margin-bottom:8px;font-weight:700">'+fmt(keys.length)+' يوم · <button class="link" data-rc="1" style="font-weight:800">'+fmt(Object.keys(cust).length)+' عميل ▾</button></div><div class="sc"><table><tr><th>اليوم</th><th>العملاء</th>'+th()+'</tr>';
+  const ncol=2+sl().length;
+  days.forEach(r=>{
+    const op=rngOpen.has(r[0]);
+    const off = isOffDay(r[0]);
+    h+='<tr class="'+(off?'off-day-row':'')+'"><td><button type="button" class="cust-btn" data-e="'+r[0]+'" style="'+(off?'border-color:var(--bad)!important;':'')+'">📅 '+r[0]+' · '+dn(r[0])+(off?' <b class="off-badge">إجازة</b>':'')+'</button>'+(S.dayNotes[r[0]]?'<div class="mu">'+esc(S.dayNotes[r[0]])+'</div>':'')+'</td><td><button class="link" data-rd="'+r[0]+'">'+fmt(r[1])+(op?' ▴':' ▾')+'</button></td>'+tds(r[2])+'</tr>';
+    if(op)h+='<tr><td colspan="'+ncol+'"><table><tr><th>العميل</th><th>الموزع</th>'+th()+'</tr>'+S.days[r[0]].map(c=>'<tr><td><button type="button" class="cust-btn" data-c="'+esc(c.n)+'">👤 '+esc(c.n)+'</button></td><td>'+dtag(c.d||"Ibs")+'</td>'+tds(c.q)+'</tr>').join("")+'</table></td></tr>';
+  });
+  let ip="";
+  if(rngItem!==null&&sl().includes(rngItem)){
+    const rows=Object.entries(cust).filter(([n,q])=>q[rngItem]>0).sort((x,y)=>y[1][rngItem]-x[1][rngItem]);
+    ip='<div class="mu" style="margin:10px 0 6px;color:var(--a);font-weight:800">عملاء '+nm(rngItem)+' ('+fmt(rows.length)+')</div><div class="sc"><table><tr><th>العميل</th><th>الموزع</th><th>الكمية</th></tr>'+rows.map(([n,q])=>'<tr><td><button type="button" class="cust-btn" data-c="'+esc(n)+'">👤 '+esc(n)+'</button></td><td>'+dtag(dist[n]||"Ibs")+'</td><td><b>'+fmt(q[rngItem])+'</b></td></tr>').join("")+'</table></div>';
+  }
+  h+='<tr class="ft tt"><td>الإجمالي</td><td></td>'+tds(tot)+'</tr><tr class="ft cn"><td>عدد العملاء لكل صنف</td><td></td>'+sl().map(i=>'<td class="ic" style="--ic:'+icol(i)+'">'+(cc[i]?'<button class="link" data-ri="'+i+'">'+fmt(cc[i])+(rngItem===i?' ▴':' ▾')+'</button>':fmt(cc[i]))+'</td>').join("")+'</tr></table></div>'+ip;
+  h+='<div class="mu" id="rcl" style="margin:12px 0 6px;scroll-margin-top:60px;font-weight:800;color:var(--a)">حسب العميل</div><div class="sc"><table><tr><th>العميل</th><th>الموزع</th><th>تاريخ الإدخال</th>'+th()+'</tr>';
+  Object.entries(cust).sort((x,y)=>{const a=[...cd[x[0]]].sort().pop(),b=[...cd[y[0]]].sort().pop();return a<b?1:a>b?-1:sum(y[1])-sum(x[1])}).forEach(([n,q])=>{
+    h+='<tr><td><button type="button" class="cust-btn" data-c="'+esc(n)+'">👤 '+esc(n)+'</button></td><td>'+dtag(dist[n]||"Ibs")+'</td><td>'+[...cd[n]].sort().reverse().map(k=>k.slice(8)+'/'+k.slice(5,7)+' ('+dn(k)+')').join('، ')+'</td>'+tds(q)+'</tr>';
+  });
+  el.innerHTML=h+'</table></div>';
+}
+
+function renderOff(){
+  $("offd").innerHTML = DN.map((n, i) => {
+    const on = S.off.includes(i);
+    return '<button type="button" class="off-day-btn ' + (on ? 'active' : '') + '" data-off="' + i + '">' + (on ? '🌴 ' : '') + n + '</button>';
+  }).join("");
+}
+
+$("offd").addEventListener("click", e => {
+  const b = e.target.closest("[data-off]");
+  if (!b) return;
+  const n = +b.dataset.off;
+  S.off = S.off.includes(n) ? S.off.filter(x => x !== n) : [...S.off, n];
+  save();
+  renderOff();
+  renderDay();
+  renderRange();
+});
+
+function renderSearch(){
+  if(statusSearch())return;
+  const v=$("sq").value.trim().toLowerCase(),el=$("sr");
+  if(!v){el.innerHTML="";return}
+  const m={};
+  Object.keys(S.days).sort().forEach(k=>S.days[k].forEach(c=>{
+    if(!(c.n+" "+(c.t||"")).toLowerCase().includes(v))return;
+    const o=m[c.n]=m[c.n]||{n:0,last:""};o.n++;o.last=k;
+  }));
+  const r=Object.entries(m).sort((a,b)=>a[1].last<b[1].last?1:-1).slice(0,30);
+  el.innerHTML=r.length?r.map(([n,o])=>'<div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--bd);padding:6px 0"><button type="button" class="cust-btn" data-c="'+esc(n)+'">👤 '+esc(n)+'</button><span class="mu">'+fmt(o.n)+' مرة · آخر: '+o.last+'</span></div>').join(""):'<div class="mu">لا توجد نتائج</div>';
+}
+function statusSearch(){
+  const f=$("sf").value,el=$("sr");if(!f)return false;
+  const v=$("sq").value.trim().toLowerCase();const r=[];
+  Object.keys(S.days).sort().reverse().forEach(k=>S.days[k].forEach(c=>{if(c.s===f&&(!v||(c.n+" "+(c.t||"")).toLowerCase().includes(v)))r.push([k,c])}));
+  el.innerHTML='<div class="mu" style="margin-bottom:4px">'+fmt(r.length)+' نتيجة</div>'+(r.length?'<div class="sc"><table>'+r.slice(0,80).map(([k,c])=>'<tr><td>'+k.slice(5)+' · '+dn(k)+'</td><td><button type="button" class="cust-btn" data-c="'+esc(c.n)+'">👤 '+esc(c.n)+'</button></td><td>'+dtag(c.d||"")+'</td></tr>').join("")+'</table></div>':"");
+  return true;
+}
+$("sq").addEventListener("input",renderSearch);
+$("sf").addEventListener("change",renderSearch);
+
+function renderBn(){const el=$("bn");if(!Object.keys(S.days).length){el.hidden=true;return}const dd=S.lastBackup?Math.floor((Date.now()-S.lastBackup)/864e5):null;if(dd!==null&&dd<7){el.hidden=true;return}el.hidden=false;el.textContent=dd===null?"💾 لسه ما عملتش نسخة احتياطية. دوس هنا واعمل واحدة.":"💾 عدّى "+fmt(dd)+" يوم على آخر نسخة احتياطية. دوس هنا واعمل واحدة."}
+$("bn").addEventListener("click",()=>$("bk").scrollIntoView({behavior:"smooth"}));
+
+let dOpen=new Set();
+
+/* --- 1. Lost Customers Card Logic --- */
+function renderLost(){
+  const m=$("month").value;if(!m)return;
+  const [y,mo]=m.split("-").map(Number),pk=iso(new Date(y,mo-2,1)).slice(0,7),P={},C=new Set();
+  Object.keys(S.days).sort().forEach(k=>S.days[k].forEach(c=>{if(c.n==="بدون اسم")return;if(k.startsWith(pk))P[c.n]={k,d:c.d};if(k.startsWith(m))C.add(c.n)}));
+  const r=Object.entries(P).filter(([n])=>!C.has(n)).sort((a,b)=>a[1].k<b[1].k?1:-1).slice(0,50);
+  $("lost").innerHTML=(r.length?'<div class="sc"><table><tr><th>العميل</th><th>آخر شراء</th><th>الموزع</th></tr>'+r.map(([n,o])=>'<tr><td><button type="button" class="cust-btn" data-c="'+esc(n)+'">👤 '+esc(n)+'</button></td><td>'+o.k.slice(5)+' · '+dn(o.k)+'</td><td>'+dtag(o.d||"")+'</td></tr>').join("")+'</table></div>':'<div class="mu">كل عملاء الشهر السابق اشتروا في هذا الشهر ✓</div>');
+}
+
+/* --- 2. Month Comparison Card Logic --- */
+function renderCmp(){
+  const m=$("month").value;if(!m)return;
+  const s=sl();
+  const [y,mo]=m.split("-").map(Number),pk=iso(new Date(y,mo-2,1)).slice(0,7);
+  const cur=m===iso(today).slice(0,7),cut=cur?today.getDate():31;
+  const agg=mk=>{const t=Z();Object.keys(S.days).filter(k=>k.startsWith(mk)&&+k.slice(8)<=cut).forEach(k=>dayTotals(k).forEach((x,i)=>t[i]+=x));return t};
+  const a=agg(m),b=agg(pk);
+  let h='<div class="sc"><table><tr><th>الصنف</th><th>الشهر ده</th><th>السابق</th><th>الفرق</th></tr>'+s.map(i=>{const d=b[i]>0?(a[i]>=b[i]?"+":"")+fmt(Math.round((a[i]-b[i])/b[i]*100))+"%":(a[i]>0?"جديد":"—");return '<tr><td><span class="bx" style="--bc:'+icol(i)+'">'+nm(i)+'</span></td><td><b>'+fmt(a[i])+'</b></td><td>'+fmt(b[i])+'</td><td style="color:'+(a[i]>=b[i]?"#16a34a":"#dc2626")+';font-weight:800">'+d+'</td></tr>'}).join("")+'</table></div>';
+  $("cmp").innerHTML=h;
+}
+
+/* --- 3. Distributor Sales Card Logic --- */
+function renderDists(){
+  const m=$("month").value;if(!m)return;
+  const keys=monthKeys(),tot=q=>sum(sl().map(i=>q[i])),D={};
+  keys.forEach(k=>S.days[k].forEach(c=>{const o=D[c.d||"Ibs"]=D[c.d||"Ibs"]||{n:0,q:Z()};o.n++;c.q.forEach((x,i)=>o.q[i]=(o.q[i]||0)+(x||0))}));
+  const de=Object.entries(D).sort((x,y)=>tot(y[1].q)-tot(x[1].q));
+  const DC={};
+  keys.forEach(k=>S.days[k].forEach(c=>{const d=c.d||"Ibs",o=(DC[d]=DC[d]||{})[c.n]=(DC[d]||{})[c.n]||{n:0,q:Z()};o.n++;c.q.forEach((x,i)=>o.q[i]=(o.q[i]||0)+(x||0))}));
+  const NC=sl().length+2;
+  const h=(de.length?'<div class="sc"><table><tr><th>الموزع</th><th>العملاء</th>'+th()+'</tr>'+de.map(([d,o])=>{
+    const op=dOpen.has(d);
+    let r='<tr><td>'+dtag(d)+'</td><td><button type="button" class="link" data-dr="'+esc(d)+'">'+fmt(o.n)+(op?' ▴':' ▾')+'</button></td>'+tds(o.q)+'</tr>';
+    if(op){
+      const cr=Object.entries(DC[d]||{}).sort((x,y)=>tot(y[1].q)-tot(x[1].q));
+      r+='<tr><td colspan="'+NC+'"><table><tr><th>العميل</th><th>المرات</th>'+th()+'</tr>'+cr.map(([n,x])=>'<tr><td><button type="button" class="cust-btn" data-c="'+esc(n)+'">👤 '+esc(n)+'</button></td><td>'+fmt(x.n)+'</td>'+tds(x.q)+'</tr>').join("")+'</table></td></tr>';
+    }
+    return r;
+  }).join("")+'</table></div>':'<div class="mu">لا توجد بيانات لهذا الشهر</div>');
+  $("dist-rep").innerHTML=h;
+}
+
+/* --- 4. Top Customers Card Logic --- */
+function renderTopCust(){
+  const m=$("month").value;if(!m)return;
+  const keys=monthKeys(),tot=q=>sum(sl().map(i=>q[i])),C={};
+  keys.forEach(k=>S.days[k].forEach(c=>{const o=C[c.n]=C[c.n]||{n:0,q:Z()};o.n++;c.q.forEach((x,i)=>o.q[i]=(o.q[i]||0)+(x||0))}));
+  const ce=Object.entries(C).sort((x,y)=>tot(y[1].q)-tot(x[1].q)).slice(0,15);
+  const h=(ce.length?'<div class="sc"><table><tr><th>العميل</th>'+th()+'</tr>'+ce.map(([n,o])=>'<tr><td><button type="button" class="cust-btn" data-c="'+esc(n)+'">👤 '+esc(n)+'</button></td>'+tds(o.q)+'</tr>').join("")+'</table></div>':'<div class="mu">لا توجد بيانات لهذا الشهر</div>');
+  $("top-cust").innerHTML=h;
+}
+
+function renderFollow(){
+  const el=$("fup"),t=iso(today),lim=iso(new Date(today.getFullYear(),today.getMonth(),today.getDate()+7)),r=[];
+  Object.keys(S.days).forEach(k=>S.days[k].forEach((c,i)=>{if(c.f&&c.f<=lim)r.push({k,i,c})}));
+  if(!r.length){el.hidden=true;return}
+  r.sort((a,b)=>a.c.f<b.c.f?-1:1);el.hidden=false;
+  el.innerHTML='<div class="sc"><table>'+r.slice(0,30).map(({k,i,c})=>{const od=c.f<t,td=c.f===t;return '<tr><td style="color:'+(od?'var(--bad)':'inherit')+'">'+(od?'متأخرة · ':td?'النهارده · ':'')+c.f.slice(5)+' · '+dn(c.f)+'</td><td><button type="button" class="cust-btn" data-c="'+esc(c.n)+'">👤 '+esc(c.n)+'</button>'+(c.t?'<div class="mu">'+esc(c.t)+'</div>':'')+'</td><td><button class="link" data-fd="'+k+'|'+i+'" style="border:1px solid var(--bd);border-radius:6px">تمت</button></td></tr>'}).join("")+'</table></div>';
+}
+$("fup").addEventListener("click",e=>{const v=e.target.dataset.fd;if(!v)return;const [k,i]=v.split("|"),c=(S.days[k]||[])[+i];if(c){c.f="";save();renderFast()}});
+
+function renderAge(){
+  const el=$("age"),N=S.ageN||3,r=[],t0=new Date(iso(today)+"T00:00:00");
+  Object.keys(S.days).forEach(k=>S.days[k].forEach((c,i)=>{if(!c.s||c.s==="تم الطباعة")return;const a=Math.floor((t0-new Date(k+"T00:00:00"))/864e5);if(a>=N)r.push({k,i,c,a})}));
+  if(!r.length){el.hidden=true;return}
+  r.sort((x,y)=>y.a-x.a);el.hidden=false;
+  el.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px"><div class="mu" style="color:var(--a);font-weight:800">حالات متأخرة المتابعة</div><select id="agn" class="st">'+[2,3,5,7,14].map(n=>'<option value="'+n+'"'+(n===N?" selected":"")+'>'+fmt(n)+' يوم فأكثر</option>').join("")+'</select></div><div class="sc"><table><tr><th>العميل</th><th>من</th><th>الحالة</th></tr>'+r.slice(0,40).map(({k,i,c,a})=>'<tr><td><button type="button" class="cust-btn" data-c="'+esc(c.n)+'">👤 '+esc(c.n)+'</button></td><td>'+fmt(a)+' يوم</td><td>'+stSel(k,i,c.s)+'</td></tr>').join("")+'</table></div>';
+}
+
+$("dist-rep").addEventListener("click",e=>{
+  const b=e.target.closest("[data-dr]");if(!b)return;
+  const d=b.dataset.dr;
+  if(dOpen.has(d))dOpen.delete(d);else dOpen.add(d);
+  renderDists();
+});
+$("age").addEventListener("change",e=>{if(e.target.id==="agn"){S.ageN=+e.target.value;save();renderAge()}});
+
+function buildNames(){
+  const list=$("cl");
+  if(!list)return;
+  const names=new Map();
+  Object.values(S.days||{}).forEach(day=>{
+    (day||[]).forEach(c=>{
+      const name=String(c?.n||"").trim().replace(/\s+/g," ");
+      if(!name || name==="بدون اسم")return;
+      const key=name.toLocaleLowerCase("ar");
+      if(!names.has(key))names.set(key,name);
+    });
+  });
+  list.innerHTML=[...names.values()].sort((a,b)=>a.localeCompare(b,"ar")).map(name=>'<option value="'+esc(name)+'"></option>').join("");
+}
+
+function render(){
+  renderItems();renderDay();renderRange();renderSearch();
+  renderLost();renderCmp();renderDists();renderTopCust();
+  renderBn();buildNames();renderFollow();renderOff();renderAge();
+}
+function renderFast(){
+  renderItems();renderDay();renderRange();buildNames();
+  renderLost();renderCmp();renderDists();renderTopCust();
+  renderFollow();renderBn();renderAge();
+}
+
+$("add").addEventListener("click",()=>{
+  const d=$("date").value;if(!d)return;
+  const q=vals();
+  if(sum(q)===0){
+    uiAlert("برجاء إدخال كمية صنف واحد على الأقل!");
+    return;
+  }
+  
+  const cName=$("cust").value.trim();
+  if(!cName){
+    uiAlert("لا يمكن الإضافة بدون كتابة اسم العميل!", "تنبيه هام");
+    $("cust").focus();
+    return;
+  }
+  
+  const rec={n:cName,d:$("distributor").value,s:$("status").value,t:$("note").value.trim(),f:$("fu").value,r:(["تم الرفض","تم التأجيل"].includes($("status").value)?$("rs").value.trim():""),q};
+  const put=()=>(S.days[d]=S.days[d]||[]).push(rec);
+  if(ed){
+    const o=S.days[ed.k],idx=o?o.indexOf(ed.r):-1;
+    if(idx<0)put();
+    else if(ed.k===d)o[idx]=rec;
+    else{o.splice(idx,1);if(!o.length)delete S.days[ed.k];put()}
+  }else put();
+  setEd(null);clearForm();save();renderFast();$("cust").focus();
+});
+$("cc").addEventListener("click",()=>{setEd(null);clearForm()});
+
+$("day").addEventListener("click",e=>{
+  const d=$("date").value,list=S.days[d]||[];
+  const del=e.target.dataset.del,eds=e.target.dataset.ed;
+  if(del!==undefined){
+    uiConfirm("هل انت متاكد من حذف هذا العميل؟", ()=>{
+      askPass(()=>{
+        if(ed&&ed.r===list[+del])setEd(null);
+        list.splice(+del,1);if(!list.length)delete S.days[d];save();renderFast();
+      });
+    });
+  }
+  if(eds!==undefined){
+    const x=list[+eds];if(!x)return;
+    setEd({k:d,r:x});$("cust").closest(".card").classList.remove("col");
+    $("cust").value=x.n==="بدون اسم"?"":x.n;
+    buildDist(x.d||S.dists[0]);$("note").value=x.t||"";$("fu").value=x.f||"";
+    $("status").innerHTML=stOpts(x.s||"");$("rs").value=x.r||"";syncRs();
+    box.querySelectorAll("[data-v]").forEach(i=>{
+      i.value=x.q[+i.dataset.v]||"";
+      highlightInput(i);
+    });
+    $("cust").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+});
+
+let curCust=null;
+/* تشابه الأسماء (بيستخدمه تصدير الشيت لمطابقة الأصناف) */
+const VN=s=>String(s).replace(/[\u064B-\u065F\u0670\u0640]/g,"")
+  .replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d))
+  .replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").replace(/ؤ/g,"و").replace(/ئ/g,"ي")
+  .replace(/[،,.؟?!:;]/g," ").toLowerCase();
+const VP=s=>VN(s).replace(/ث/g,"ت").replace(/ذ/g,"د").replace(/ظ/g,"ض").replace(/ص/g,"س").replace(/ط/g,"ت").replace(/ق/g,"ك").replace(/ء/g,"").replace(/ه/g,"");
+function vLev(a,b){
+  const m=a.length,n=b.length;if(!m)return n;if(!n)return m;
+  let p=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}
+  return p[n];
+}
+const vSim=(a,b)=>{a=VP(a);b=VP(b);if(!a||!b)return 0;return 1-vLev(a,b)/Math.max(a.length,b.length)};
+
+function refreshCust(){
+  if(!curCust||!$("cm").classList.contains("on"))return;
+  const mb=$("cm").querySelector(".mb"),y=mb.scrollTop;
+  showCust(curCust);mb.scrollTop=y;
+}
+function showCust(name){
+  curCust=name;
+  const recs=[];
+  Object.keys(S.days).sort().forEach(k=>S.days[k].forEach((c,i)=>{if(c.n===name)recs.push({k,i,c})}));
+  const n=recs.length,tot=Z(),sc={},pm={};
+  recs.forEach(({k,c})=>{
+    (c.q||[]).forEach((x,j)=>tot[j]=(tot[j]||0)+(x||0));
+    const s=c.s||"بدون حالة";sc[s]=(sc[s]||0)+1;
+    const m=k.slice(0,7),o=pm[m]||(pm[m]={o:0,p:0});o.o++;o.p+=sum(c.q||[]);
+  });
+  const D=k=>new Date(k+"T00:00:00");
+  let st="";
+  if(n){
+    const first=recs[0].k,last=recs[n-1].k;
+    const days=[...new Set(recs.map(r=>r.k))];
+    const since=Math.max(0,Math.round((D(iso(today))-D(last))/864e5));
+    const gap=days.length>1?Math.round((D(last)-D(first))/864e5/(days.length-1)):null;
+    const box=(l,v)=>'<div class="cp-box"><span class="mu">'+l+'</span><b>'+v+'</b></div>';
+    st='<div class="cp-grid">'
+      +box("عدد الطلبات",fmt(n))
+      +box("إجمالي القطع",fmt(sum(tot)))
+      +box("أول طلب",first+'<div class="mu" style="font-weight:600;font-size:12px">'+dn(first)+'</div>')
+      +box("آخر طلب",last+'<div class="mu" style="font-weight:600;font-size:12px">'+(since===0?"النهارده":"من "+fmt(since)+" يوم")+'</div>')
+      +box("متوسط الفترة بين الطلبات",gap===null?"—":"كل "+fmt(gap)+" يوم")
+      +box("آخر موزع",dtag(recs[n-1].c.d||"Ibs")||"—")
+      +'</div>';
+    st+='<div class="cp-h">الكميات حسب الصنف</div><div class="cp-chips">'
+      +sl().map(i=>'<span class="cp-chip" style="--c:'+icol(i)+'">'+nm(i)+': '+fmt(tot[i]||0)+'</span>').join("")+'</div>';
+    st+='<div class="cp-h">الحالات</div><div class="cp-chips">'
+      +Object.keys(sc).map(s=>'<span class="cp-chip" style="--c:'+(SC[s]||"var(--mu)")+'">'+esc(s)+' × '+fmt(sc[s])+'</span>').join("")+'</div>';
+    const ms=Object.keys(pm).sort().reverse(),mx=Math.max(...ms.map(m=>pm[m].p),1);
+    st+='<div class="cp-h">حسب الشهر</div>'+ms.map(m=>'<div class="cp-m"><span>'+m+'</span><div class="cp-bar" style="width:'+Math.max(4,Math.round(pm[m].p/mx*100))+'%"></div><span class="mu">'+fmt(pm[m].p)+' قطعة · '+fmt(pm[m].o)+' طلب</span></div>').join("");
+    st+='<div class="cp-h">كل الطلبات (الأحدث أولاً)</div>'
+      +recs.slice().reverse().map(({k,i,c})=>{
+        const chips=sl().filter(j=>(c.q&&c.q[j]||0)>0).map(j=>'<span class="cp-chip" style="--c:'+icol(j)+'">'+nm(j)+': '+fmt(c.q[j])+'</span>').join("")||'<span class="mu">من غير كميات</span>';
+        return '<div class="cp-o"><div class="top"><span>'+k+' · '+dn(k)+'</span>'+dtag(c.d||"Ibs")+'</div>'
+          +stSel(k,i,c.s||"")+(c.r?'<div class="mu" style="margin-top:6px">السبب: '+esc(c.r)+'</div>':'')
+          +(c.t?'<div class="mu" style="margin-top:6px">📝 '+esc(c.t)+'</div>':'')
+          +(c.f?'<div class="mu" style="margin-top:6px">متابعة: '+esc(c.f)+' · '+dn(c.f)+'</div>':'')
+          +'<div class="cp-chips" style="margin-top:8px">'+chips+'</div></div>';
+      }).join("");
+  }else st='<div class="mu">مفيش طلبات مسجلة للاسم ده.</div>';
+  $("cn").textContent=name;
+  $("cb").innerHTML=st
+    +'<div class="cp-h">تعديل الاسم</div><div style="display:flex;gap:6px;margin-bottom:6px"><input id="rn" value="'+esc(name)+'"><button id="rnb" class="link" data-old="'+esc(name)+'" style="border:1px solid var(--bd);white-space:nowrap;border-radius:10px">تعديل الاسم بكل السجلات</button></div><div class="mu" id="rnm" style="min-height:18px;margin-bottom:8px;color:var(--bad)"></div>';
+  $("cm").classList.add("on");
+}
+$("cx").addEventListener("click",()=>$("cm").classList.remove("on"));
+$("cm").addEventListener("click",e=>{if(e.target===$("cm"))$("cm").classList.remove("on")});
+
+$("cb").addEventListener("click",e=>{
+  if(e.target.id!=="rnb")return;
+  const old=e.target.dataset.old,nn=$("rn").value.trim();
+  if(!nn||nn===old)return;
+  const ex=Object.values(S.days).some(l=>l.some(c=>c.n===nn));
+  if(ex&&e.target.dataset.ok!==nn){e.target.dataset.ok=nn;$("rnm").textContent="الاسم موجود بالفعل. اضغط مرة أخرى لدمج السجلات بنفس الاسم.";return}
+  Object.values(S.days).forEach(l=>l.forEach(c=>{if(c.n===old)c.n=nn}));
+  save();renderFast();showCust(nn);
+});
+
+$("rng").addEventListener("click",e=>{
+  const b=e.target.closest("button");
+  if(!b)return;
+  if(b.dataset.e){
+    $("date").value=b.dataset.e;
+    $("day").closest(".card").classList.remove("col");
+    renderDay();
+    $("day").scrollIntoView({behavior:"smooth",block:"start"});
+    return;
+  }
+  if(b.dataset.rc){
+    const x=$("rcl");
+    if(x)x.scrollIntoView({behavior:"smooth",block:"start"});
+    return;
+  }
+  if(b.dataset.rd){
+    const k=b.dataset.rd;
+    if(rngOpen.has(k))rngOpen.delete(k);else rngOpen.add(k);
+    renderRange();
+    return;
+  }
+  if(b.dataset.ri!==undefined){
+    const i=+b.dataset.ri;
+    rngItem=(rngItem===i)?null:i;
+    renderRange();
+    return;
+  }
+});
+
+$("date").addEventListener("change",()=>{const m=$("date").value.slice(0,7);if(m)$("month").value=m;render()});
+$("month").addEventListener("change",()=>{
+  const m=$("month").value;
+  if(m){
+    const y=+m.slice(0,4),mo=+m.slice(5,7),last=iso(new Date(y,mo,0));
+    $("from").value=m+"-01";
+    $("to").value=(m===iso(today).slice(0,7))?iso(today):last;
+  }
+  render();
+});
+$("from").value=iso(today).slice(0,8)+"01";
+$("to").value=iso(today);
+$("from").addEventListener("change",renderRange);
+$("to").addEventListener("change",renderRange);
+
+$("cpw").addEventListener("click",()=>{
+  const v=$("npw").value.trim();
+  if(!v){uiAlert("اكتب الباسوورد الجديد أولاً.");return}
+  askPass(()=>{
+    S.pwh=PH(v);
+    save();
+    $("npw").value="";
+    $("bm").textContent="تم تغيير الباسوورد بنجاح ✓";
+    $("bm").style.color="var(--ac)";
+  });
+});
+
+$("arc").addEventListener("click",()=>{
+  const m = +$("arc-months").value || 3;
+  uiConfirm("هل قمت بتنزيل نسخة احتياطية من البيانات أولاً؟\nسيتم مسح المبيعات الأقدم من "+m+" شهور.", ()=>{
+    askPass(()=>{
+      const now=new Date();
+      const base=new Date(now.getFullYear(),now.getMonth()-m,1);
+      base.setDate(Math.min(now.getDate(),new Date(base.getFullYear(),base.getMonth()+1,0).getDate()));
+      const limitIso=iso(base);
+      let count=0,notes=0;
+      Object.keys(S.days).forEach(k=>{
+        if(k<limitIso){delete S.days[k];count++}
+      });
+      Object.keys(S.dayNotes||{}).forEach(k=>{
+        if(k<limitIso){delete S.dayNotes[k];notes++}
+      });
+      if(count>0||notes>0){
+        save();render();
+        $("bm").textContent="تم أرشفة ومسح بيانات "+fmt(count)+" يوم بنجاح ✓";
+        $("bm").style.color="var(--ac)";
+      }else{
+        $("bm").textContent="لا توجد مبيعات أقدم من هذه الفترة لمسحها.";
+        $("bm").style.color="var(--mu)";
+      }
+    });
+  });
+});
+
+const THK="sales_theme";let thm="dark";try{thm=localStorage.getItem(THK)||"dark"}catch(e){}
+const mqL=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null;
+if(mqL&&mqL.addEventListener)mqL.addEventListener("change",()=>{if(thm==="auto")applyTheme()});
+function applyTheme(){const r=document.documentElement;r.setAttribute("data-theme",thm==="auto"?(mqL&&mqL.matches?"light":"dark"):thm);$("th").textContent=thm==="auto"?"🌓 تلقائي":thm==="light"?"☀️ فاتح":"🌙 ليلي"}
+
+function buildHdrControls(){
+  const ctrl = $("hdr-ctrl");
+  ctrl.style.cssText = "display:flex;gap:6px;align-items:center";
+  const thBtn = document.createElement("button");
+  thBtn.id = "th";
+  thBtn.className = "link";
+  thBtn.style.cssText = "border:1px solid var(--bd);padding:6px 12px;border-radius:10px;font-weight:700";
+  ctrl.append(thBtn);
+  thBtn.addEventListener("click",()=>{thm=thm==="dark"?"light":thm==="light"?"auto":"dark";try{localStorage.setItem(THK,thm)}catch(e){}applyTheme()});
+  applyTheme();
+}
+
+function syncRs(){const v=$("status").value;$("rs").hidden=!(v==="تم الرفض"||v==="تم التأجيل");const c=SC[v];$("status").style.cssText=c?"border:2px solid "+c+";color:"+c+";font-weight:800;background:color-mix(in srgb,"+c+" 10%,transparent)":""}
+$("status").addEventListener("change",syncRs);
+
+const SC={"تم الطباعة":"#16a34a","جاري الطباعة":"#eab308","بندنج":"#f87171"};
+const SCT={"تم الطباعة":"#fff","جاري الطباعة":"#1f2937","بندنج":"#fff"};
+
+/* Collapsible Card Auto-Generator System */
+(function(){
+  buildHdrControls();
+  const cards=[...document.querySelectorAll("main .card")];
+  let col={};try{col=JSON.parse(localStorage.getItem("sales_col_v3")||"{}")}catch(e){}
+  cards.forEach((c,i)=>{
+    if(c.querySelector(".ch2")) return;
+    const title = c.dataset.title || "قسم المبيعات";
+    const h=document.createElement("div");
+    h.className="ch2";
+    h.innerHTML="<span>"+title+'</span><span class="cv">▾</span>';
+    c.insertBefore(h,c.firstChild);
+    if(col[i])c.classList.add("col");
+    h.addEventListener("click",()=>{
+      c.classList.toggle("col");
+      col[i]=c.classList.contains("col")?1:0;
+      try{localStorage.setItem("sales_col_v3",JSON.stringify(col))}catch(e){}
+    });
+  });
+})();
+
+function downloadFile(content,fileName,mimeType){
+  const blob=new Blob([content],{type:mimeType});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download=fileName;document.body.appendChild(a);a.click();
+  setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},100);
+}
+
+$("exj").addEventListener("click",()=>{
+  S.lastBackup=Date.now();save();renderBn();downloadFile(JSON.stringify({app:"sales-tracker",v:2,items:S.items,dists:S.dists,itemTargets:S.itemTargets,days:S.days,dayNotes:S.dayNotes,off:S.off,ageN:S.ageN,pwh:S.pwh},null,2),"sales-backup-"+iso(new Date())+".json","application/json");
+  $("bm").textContent="تم تحميل النسخة الاحتياطية بنجاح ✓";$("bm").style.color="var(--ac)";
+});
+
+$("exc").addEventListener("click",()=>{
+  const s=sl(),r=[["التاريخ","اليوم","العميل","الموزع","الحالة","السبب","ملاحظة","موعد المتابعة",...s.map(i=>S.items[i].n)]];
+  const tx=v=>{v=String(v==null?"":v);return /^[=+\-@\t\r]/.test(v)?"'"+v:v};
+  Object.keys(S.days).sort().forEach(k=>S.days[k].forEach(c=>r.push([k,dn(k),tx(c.n),tx(c.d||"Ibs"),tx(c.s||""),tx(c.r||""),tx(c.t||""),c.f||"",...s.map(i=>c.q[i]||0)])));
+  const q=v=>'"'+String(v).replace(/"/g,'""')+'"';
+  downloadFile("\ufeff"+r.map(x=>x.map(q).join(",")).join("\r\n"),"sales-"+iso(new Date())+".csv","text/csv;charset=utf-8;");
+  $("bm").textContent="تم تحميل ملف CSV بنجاح ✓ (افتحه بـ Excel)";$("bm").style.color="var(--ac)";
+});
+
+$("imp").addEventListener("click",()=>$("fl").click());
+$("fl").addEventListener("change",()=>{
+  const f=$("fl").files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    let d;try{d=JSON.parse(rd.result)}catch(e){}
+    if(!d||d.app!=="sales-tracker"||!d.days){$("bm").textContent="الملف غير صالح";$("bm").style.color="var(--bad)";return}
+    askPass(()=>{
+      S.days=d.days;normSt();S.itemTargets=d.itemTargets||{};S.items=d.items||DEF.map(n=>({n}));
+      S.dists=d.dists||S.dists;S.dayNotes=d.dayNotes||{};S.off=d.off||S.off;
+      S.ageN=d.ageN||S.ageN;S.pwh=d.pwh||(d.password?PH(String(d.password)):S.pwh);
+      buildDist();setEd(null);save();buildForms();render();
+      $("bm").textContent="تم استرجاع البيانات بنجاح ✓";$("bm").style.color="var(--ac)";
+    });
+  };
+  rd.readAsText(f);$("fl").value="";
+});
+
+let dI=[],dD=[];
+function renderEditor(){
+  $("il").innerHTML=dI.map((o,i)=>o.x?"":'<div class="row" style="grid-template-columns:1fr auto;margin-bottom:8px;align-items:center"><input data-n="'+i+'" value="'+esc(o.n)+'"><button type="button" class="x" data-di="'+i+'" style="margin:0;border:1px solid var(--bad);border-radius:10px">✕</button></div>').join("");
+  $("dl").innerHTML=dD.map((d,i)=>'<div class="row" style="grid-template-columns:1fr auto;margin-bottom:8px;align-items:center"><div style="font-weight:800">'+dtag(d)+'</div><button type="button" class="x" data-dd="'+i+'" style="margin:0;border:1px solid var(--bad);border-radius:10px">✕</button></div>').join("");
+}
+$("ei").addEventListener("click",()=>{
+  dI=S.items.map(o=>Object.assign({},o));
+  dD=S.dists.slice();
+  $("ni").value="";$("nd").value="";
+  renderEditor();
+  $("im").classList.add("on");
+});
+$("il").addEventListener("input",e=>{
+  const i=e.target.dataset.n;
+  if(i!==undefined&&dI[+i])dI[+i].n=e.target.value;
+});
+$("il").addEventListener("click",e=>{
+  const b=e.target.closest("[data-di]");if(!b)return;
+  if(dI.filter(o=>!o.x).length<=1){uiAlert("لازم يفضل صنف واحد على الأقل.");return}
+  dI[+b.dataset.di].x=true;renderEditor();
+});
+$("dl").addEventListener("click",e=>{
+  const b=e.target.closest("[data-dd]");if(!b)return;
+  if(dD.length<=1){uiAlert("لازم يفضل موزع واحد على الأقل.");return}
+  dD.splice(+b.dataset.dd,1);renderEditor();
+});
+$("na").addEventListener("click",()=>{
+  const v=$("ni").value.trim();if(!v)return;
+  if(dI.some(o=>!o.x&&o.n.trim()===v)){uiAlert("الصنف ده موجود بالفعل.");return}
+  dI.push({n:v});$("ni").value="";renderEditor();
+});
+$("nda").addEventListener("click",()=>{
+  const v=$("nd").value.trim();if(!v)return;
+  if(dD.includes(v)){uiAlert("الموزع ده موجود بالفعل.");return}
+  dD.push(v);$("nd").value="";renderEditor();
+});
+$("ni").addEventListener("keydown",e=>{if(e.key==="Enter")$("na").click()});
+$("nd").addEventListener("keydown",e=>{if(e.key==="Enter")$("nda").click()});
+$("ic").addEventListener("click",()=>$("im").classList.remove("on"));
+$("im").addEventListener("click",e=>{if(e.target===$("im"))$("im").classList.remove("on")});
+$("is").addEventListener("click",()=>{
+  for(const o of dI){if(!o.x){o.n=o.n.trim();if(!o.n){uiAlert("في صنف اسمه فاضي. اكتب الاسم أو احذفه.");return}}}
+  S.items=dI;S.dists=dD;
+  S.dists.forEach(d=>dcol(d));
+  save();
+  buildDist();buildForms();render();
+  $("im").classList.remove("on");
+});
+
+buildForms();
+render();
+
+/* لو التطبيق فضل مفتوح وعدّى منتصف الليل: نحدّث "النهارده" */
+function checkNewDay(){
+  const now=new Date();
+  if(iso(now)===iso(today))return;
+  const oldI=iso(today),oldM=oldI.slice(0,7);
+  today=now;
+  const nI=iso(today),nM=nI.slice(0,7);
+  if($("date").value===oldI)$("date").value=nI;
+  if($("month").value===oldM&&nM!==oldM){
+    $("month").value=nM;$("from").value=nM+"-01";$("to").value=nI;
+  }else if($("to").value===oldI)$("to").value=nI;
+  render();
+}
+setInterval(checkNewDay,60000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)checkNewDay()});
+window.addEventListener("focus",checkNewDay);
+
+const XW={sheet:"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<worksheet xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><dimension ref=\"A1:AC65\"/><sheetViews><sheetView tabSelected=\"1\" workbookViewId=\"0\" zoomScale=\"80\"><selection activeCell=\"B27\" sqref=\"B27\"/><\/sheetView><\/sheetViews><sheetFormatPr defaultRowHeight=\"15.0\" defaultColWidth=\"3\"/><cols><col min=\"1\" max=\"1\" customWidth=\"1\" width=\"3.0\" style=\"0\"/><col min=\"2\" max=\"2\" customWidth=\"1\" bestFit=\"1\" width=\"11.7109375\" style=\"0\"/><col min=\"3\" max=\"3\" customWidth=\"1\" bestFit=\"1\" width=\"19.285156\" style=\"0\"/><col min=\"4\" max=\"4\" customWidth=\"1\" bestFit=\"1\" width=\"6.5703125\" style=\"0\"/><col min=\"5\" max=\"5\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"6\" max=\"6\" customWidth=\"1\" bestFit=\"1\" width=\"7.0\" style=\"0\"/><col min=\"7\" max=\"7\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"8\" max=\"8\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><col min=\"9\" max=\"9\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"10\" max=\"10\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><col min=\"11\" max=\"11\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"12\" max=\"12\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><col min=\"13\" max=\"13\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"14\" max=\"14\" customWidth=\"1\" bestFit=\"1\" width=\"5.5703125\" style=\"0\"/><col min=\"15\" max=\"15\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"16\" max=\"16\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><col min=\"17\" max=\"17\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"18\" max=\"18\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><col min=\"19\" max=\"19\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"20\" max=\"20\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><col min=\"21\" max=\"21\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"22\" max=\"22\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><col min=\"23\" max=\"23\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"24\" max=\"24\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><col min=\"25\" max=\"25\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"26\" max=\"26\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><col min=\"27\" max=\"27\" customWidth=\"1\" bestFit=\"1\" width=\"6.2851562\" style=\"0\"/><col min=\"28\" max=\"28\" customWidth=\"1\" bestFit=\"1\" width=\"6.8554688\" style=\"0\"/><\/cols><sheetData><row r=\"1\" spans=\"8:8\" ht=\"14.45\" customHeight=\"1\"><c r=\"A1\" s=\"1\" t=\"s\"><v>0<\/v><\/c><c r=\"B1\" s=\"2\"/><c r=\"C1\" s=\"2\"/><c r=\"D1\" s=\"2\"/><c r=\"E1\" s=\"2\"/><c r=\"F1\" s=\"2\"/><c r=\"G1\" s=\"2\"/><c r=\"H1\" s=\"2\"/><c r=\"I1\" s=\"2\"/><c r=\"J1\" s=\"2\"/><c r=\"K1\" s=\"2\"/><c r=\"L1\" s=\"2\"/><c r=\"M1\" s=\"2\"/><c r=\"N1\" s=\"2\"/><c r=\"O1\" s=\"2\"/><c r=\"P1\" s=\"2\"/><c r=\"Q1\" s=\"2\"/><c r=\"R1\" s=\"2\"/><c r=\"S1\" s=\"2\"/><c r=\"T1\" s=\"2\"/><c r=\"U1\" s=\"2\"/><c r=\"V1\" s=\"2\"/><c r=\"W1\" s=\"2\"/><c r=\"X1\" s=\"2\"/><c r=\"Y1\" s=\"2\"/><c r=\"Z1\" s=\"2\"/><c r=\"AA1\" s=\"2\"/><c r=\"AB1\" s=\"2\"/><\/row><row r=\"2\" spans=\"8:8\" ht=\"14.45\" customHeight=\"1\"><c r=\"A2\" s=\"1\"/><c r=\"B2\" s=\"2\"/><c r=\"C2\" s=\"2\"/><c r=\"D2\" s=\"2\"/><c r=\"E2\" s=\"2\"/><c r=\"F2\" s=\"2\"/><c r=\"G2\" s=\"2\"/><c r=\"H2\" s=\"2\"/><c r=\"I2\" s=\"2\"/><c r=\"J2\" s=\"2\"/><c r=\"K2\" s=\"2\"/><c r=\"L2\" s=\"2\"/><c r=\"M2\" s=\"2\"/><c r=\"N2\" s=\"2\"/><c r=\"O2\" s=\"2\"/><c r=\"P2\" s=\"2\"/><c r=\"Q2\" s=\"2\"/><c r=\"R2\" s=\"2\"/><c r=\"S2\" s=\"2\"/><c r=\"T2\" s=\"2\"/><c r=\"U2\" s=\"2\"/><c r=\"V2\" s=\"2\"/><c r=\"W2\" s=\"2\"/><c r=\"X2\" s=\"2\"/><c r=\"Y2\" s=\"2\"/><c r=\"Z2\" s=\"2\"/><c r=\"AA2\" s=\"2\"/><c r=\"AB2\" s=\"2\"/><\/row><row r=\"3\" spans=\"8:8\" ht=\"15.0\" customHeight=\"1\"><c r=\"A3\" s=\"3\"/><c r=\"B3\" s=\"4\"/><c r=\"C3\" s=\"4\"/><c r=\"D3\" s=\"4\"/><c r=\"E3\" s=\"4\"/><c r=\"F3\" s=\"4\"/><c r=\"G3\" s=\"4\"/><c r=\"H3\" s=\"4\"/><c r=\"I3\" s=\"4\"/><c r=\"J3\" s=\"4\"/><c r=\"K3\" s=\"4\"/><c r=\"L3\" s=\"4\"/><c r=\"M3\" s=\"4\"/><c r=\"N3\" s=\"4\"/><c r=\"O3\" s=\"4\"/><c r=\"P3\" s=\"4\"/><c r=\"Q3\" s=\"4\"/><c r=\"R3\" s=\"4\"/><c r=\"S3\" s=\"4\"/><c r=\"T3\" s=\"4\"/><c r=\"U3\" s=\"4\"/><c r=\"V3\" s=\"4\"/><c r=\"W3\" s=\"4\"/><c r=\"X3\" s=\"4\"/><c r=\"Y3\" s=\"4\"/><c r=\"Z3\" s=\"4\"/><c r=\"AA3\" s=\"4\"/><c r=\"AB3\" s=\"4\"/><\/row><row r=\"4\" spans=\"8:8\" ht=\"19.5\"><c r=\"A4\" s=\"5\" t=\"s\"><v>1<\/v><\/c><c r=\"B4\" s=\"6\" t=\"s\"><v>2<\/v><\/c><c r=\"C4\" s=\"6\" t=\"s\"><v>3<\/v><\/c><c r=\"D4\" s=\"6\" t=\"s\"><v>4<\/v><\/c><c r=\"E4\" s=\"7\" t=\"s\"><v>5<\/v><\/c><c r=\"F4\" s=\"8\"/><c r=\"G4\" s=\"7\" t=\"s\"><v>6<\/v><\/c><c r=\"H4\" s=\"9\"/><c r=\"I4\" s=\"7\" t=\"s\"><v>7<\/v><\/c><c r=\"J4\" s=\"9\"/><c r=\"K4\" s=\"7\" t=\"s\"><v>21<\/v><\/c><c r=\"L4\" s=\"9\"/><c r=\"M4\" s=\"7\" t=\"s\"><v>10<\/v><\/c><c r=\"N4\" s=\"9\"/><c r=\"O4\" s=\"7\" t=\"s\"><v>11<\/v><\/c><c r=\"P4\" s=\"9\"/><c r=\"Q4\" s=\"7\" t=\"s\"><v>12<\/v><\/c><c r=\"R4\" s=\"9\"/><c r=\"S4\" s=\"7\" t=\"s\"><v>9<\/v><\/c><c r=\"T4\" s=\"9\"/><c r=\"U4\" s=\"7\" t=\"s\"><v>8<\/v><\/c><c r=\"V4\" s=\"9\"/><c r=\"W4\" s=\"7\" t=\"s\"><v>22<\/v><\/c><c r=\"X4\" s=\"9\"/><c r=\"Y4\" s=\"7\" t=\"s\"><v>23<\/v><\/c><c r=\"Z4\" s=\"9\"/><c r=\"AA4\" s=\"7\" t=\"s\"><v>24<\/v><\/c><c r=\"AB4\" s=\"9\"/><\/row><row r=\"5\" spans=\"8:8\" ht=\"19.5\"><c r=\"A5\" s=\"10\"/><c r=\"B5\" s=\"11\"/><c r=\"C5\" s=\"12\"/><c r=\"D5\" s=\"12\"/><c r=\"E5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"F5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"G5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"H5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"I5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"J5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"K5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"L5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"M5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"N5\" s=\"14\" t=\"s\"><v>14<\/v><\/c><c r=\"O5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"P5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"Q5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"R5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"S5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"T5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"U5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"V5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"W5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"X5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"Y5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"Z5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><c r=\"AA5\" s=\"13\" t=\"s\"><v>13<\/v><\/c><c r=\"AB5\" s=\"13\" t=\"s\"><v>14<\/v><\/c><\/row><row r=\"6\" spans=\"8:8\"><c r=\"A6\" s=\"15\"><v>1.0<\/v><\/c><c r=\"B6\" s=\"16\"/><c r=\"C6\" s=\"16\"/><c r=\"D6\" s=\"16\"/><c r=\"E6\" s=\"17\"/><c r=\"F6\" s=\"18\"><f t=\"shared\" si=\"0\" ref=\"F6:F64\">E6*107.14<\/f><v>0.0<\/v><\/c><c r=\"G6\" s=\"17\"/><c r=\"H6\" s=\"18\"><f t=\"shared\" si=\"1\" ref=\"H6:H64\">G6*82.71<\/f><v>0.0<\/v><\/c><c r=\"I6\" s=\"17\"/><c r=\"J6\" s=\"19\"><f t=\"shared\" si=\"2\" ref=\"J6:J64\">I6*44.64<\/f><v>0.0<\/v><\/c><c r=\"K6\" s=\"17\"/><c r=\"L6\" s=\"18\"><f t=\"shared\" si=\"3\" ref=\"L6:L64\">K6*23.43<\/f><v>0.0<\/v><\/c><c r=\"M6\" s=\"17\"/><c r=\"N6\" s=\"18\"><f t=\"shared\" si=\"4\" ref=\"N6:N64\">M6*23.064<\/f><v>0.0<\/v><\/c><c r=\"O6\" s=\"17\"/><c r=\"P6\" s=\"18\"><f t=\"shared\" si=\"5\" ref=\"P6:P64\">O6*21.58<\/f><v>0.0<\/v><\/c><c r=\"Q6\" s=\"17\"/><c r=\"R6\" s=\"18\"><f t=\"shared\" si=\"6\" ref=\"R6:R64\">Q6*19.34<\/f><v>0.0<\/v><\/c><c r=\"S6\" s=\"17\"/><c r=\"T6\" s=\"19\"><f t=\"shared\" si=\"7\" ref=\"T6:T64\">S6*39.16<\/f><v>0.0<\/v><\/c><c r=\"U6\" s=\"17\"/><c r=\"V6\" s=\"19\"><f t=\"shared\" si=\"8\" ref=\"V6:V61\">U6*44.64<\/f><v>0.0<\/v><\/c><c r=\"W6\" s=\"17\"/><c r=\"X6\" s=\"18\"><f t=\"shared\" si=\"9\" ref=\"X6:X37\">W6*23.43<\/f><v>0.0<\/v><\/c><c r=\"Y6\" s=\"17\"/><c r=\"Z6\" s=\"18\"><f t=\"shared\" si=\"10\" ref=\"Z6:Z38\">Y6*23.43<\/f><v>0.0<\/v><\/c><c r=\"AA6\" s=\"17\"/><c r=\"AB6\" s=\"18\"><f t=\"shared\" si=\"11\" ref=\"AB6:AB38\">AA6*23.43<\/f><v>0.0<\/v><\/c><\/row><row r=\"7\" spans=\"8:8\"><c r=\"A7\" s=\"20\"><v>2.0<\/v><\/c><c r=\"B7\" s=\"16\"/><c r=\"C7\" s=\"16\"/><c r=\"D7\" s=\"16\"/><c r=\"E7\" s=\"17\"/><c r=\"F7\" s=\"18\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G7\" s=\"17\"/><c r=\"H7\" s=\"18\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I7\" s=\"17\"/><c r=\"J7\" s=\"19\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K7\" s=\"17\"/><c r=\"L7\" s=\"18\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M7\" s=\"17\"/><c r=\"N7\" s=\"18\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O7\" s=\"17\"/><c r=\"P7\" s=\"18\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q7\" s=\"17\"/><c r=\"R7\" s=\"18\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S7\" s=\"17\"/><c r=\"T7\" s=\"19\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U7\" s=\"17\"/><c r=\"V7\" s=\"19\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W7\" s=\"17\"/><c r=\"X7\" s=\"18\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y7\" s=\"17\"/><c r=\"Z7\" s=\"18\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA7\" s=\"17\"/><c r=\"AB7\" s=\"18\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"8\" spans=\"8:8\"><c r=\"A8\" s=\"20\"><v>3.0<\/v><\/c><c r=\"B8\" s=\"21\"/><c r=\"C8\" s=\"21\"/><c r=\"D8\" s=\"21\"/><c r=\"E8\" s=\"22\"/><c r=\"F8\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G8\" s=\"22\"/><c r=\"H8\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I8\" s=\"22\"/><c r=\"J8\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K8\" s=\"22\"/><c r=\"L8\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M8\" s=\"22\"/><c r=\"N8\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O8\" s=\"22\"/><c r=\"P8\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q8\" s=\"22\"/><c r=\"R8\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S8\" s=\"22\"/><c r=\"T8\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U8\" s=\"22\"/><c r=\"V8\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W8\" s=\"22\"/><c r=\"X8\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y8\" s=\"22\"/><c r=\"Z8\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA8\" s=\"22\"/><c r=\"AB8\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"9\" spans=\"8:8\"><c r=\"A9\" s=\"20\"><v>4.0<\/v><\/c><c r=\"B9\" s=\"21\"/><c r=\"C9\" s=\"21\"/><c r=\"D9\" s=\"21\"/><c r=\"E9\" s=\"22\"/><c r=\"F9\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G9\" s=\"22\"/><c r=\"H9\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I9\" s=\"22\"/><c r=\"J9\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K9\" s=\"22\"/><c r=\"L9\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M9\" s=\"22\"/><c r=\"N9\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O9\" s=\"22\"/><c r=\"P9\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q9\" s=\"22\"/><c r=\"R9\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S9\" s=\"22\"/><c r=\"T9\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U9\" s=\"22\"/><c r=\"V9\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W9\" s=\"22\"/><c r=\"X9\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y9\" s=\"22\"/><c r=\"Z9\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA9\" s=\"22\"/><c r=\"AB9\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"10\" spans=\"8:8\"><c r=\"A10\" s=\"20\"><v>5.0<\/v><\/c><c r=\"B10\" s=\"21\"/><c r=\"C10\" s=\"21\"/><c r=\"D10\" s=\"21\"/><c r=\"E10\" s=\"22\"/><c r=\"F10\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G10\" s=\"22\"/><c r=\"H10\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I10\" s=\"22\"/><c r=\"J10\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K10\" s=\"22\"/><c r=\"L10\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M10\" s=\"22\"/><c r=\"N10\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O10\" s=\"22\"/><c r=\"P10\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q10\" s=\"22\"/><c r=\"R10\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S10\" s=\"22\"/><c r=\"T10\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U10\" s=\"22\"/><c r=\"V10\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W10\" s=\"22\"/><c r=\"X10\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y10\" s=\"22\"/><c r=\"Z10\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA10\" s=\"22\"/><c r=\"AB10\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"11\" spans=\"8:8\"><c r=\"A11\" s=\"20\"><v>6.0<\/v><\/c><c r=\"B11\" s=\"21\"/><c r=\"C11\" s=\"21\"/><c r=\"D11\" s=\"21\"/><c r=\"E11\" s=\"22\"/><c r=\"F11\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G11\" s=\"22\"/><c r=\"H11\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I11\" s=\"22\"/><c r=\"J11\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K11\" s=\"22\"/><c r=\"L11\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M11\" s=\"22\"/><c r=\"N11\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O11\" s=\"22\"/><c r=\"P11\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q11\" s=\"22\"/><c r=\"R11\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S11\" s=\"22\"/><c r=\"T11\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U11\" s=\"22\"/><c r=\"V11\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W11\" s=\"22\"/><c r=\"X11\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y11\" s=\"22\"/><c r=\"Z11\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA11\" s=\"22\"/><c r=\"AB11\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"12\" spans=\"8:8\"><c r=\"A12\" s=\"20\"><v>8.0<\/v><\/c><c r=\"B12\" s=\"21\"/><c r=\"C12\" s=\"21\"/><c r=\"D12\" s=\"21\"/><c r=\"E12\" s=\"22\"/><c r=\"F12\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G12\" s=\"22\"/><c r=\"H12\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I12\" s=\"22\"/><c r=\"J12\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K12\" s=\"22\"/><c r=\"L12\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M12\" s=\"22\"/><c r=\"N12\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O12\" s=\"22\"/><c r=\"P12\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q12\" s=\"22\"/><c r=\"R12\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S12\" s=\"22\"/><c r=\"T12\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U12\" s=\"22\"/><c r=\"V12\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W12\" s=\"22\"/><c r=\"X12\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y12\" s=\"22\"/><c r=\"Z12\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA12\" s=\"22\"/><c r=\"AB12\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"13\" spans=\"8:8\"><c r=\"A13\" s=\"20\"><v>9.0<\/v><\/c><c r=\"B13\" s=\"21\"/><c r=\"C13\" s=\"21\"/><c r=\"D13\" s=\"21\"/><c r=\"E13\" s=\"22\"/><c r=\"F13\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G13\" s=\"22\"/><c r=\"H13\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I13\" s=\"22\"/><c r=\"J13\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K13\" s=\"22\"/><c r=\"L13\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M13\" s=\"22\"/><c r=\"N13\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O13\" s=\"22\"/><c r=\"P13\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q13\" s=\"22\"/><c r=\"R13\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S13\" s=\"22\"/><c r=\"T13\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U13\" s=\"22\"/><c r=\"V13\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W13\" s=\"22\"/><c r=\"X13\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y13\" s=\"22\"/><c r=\"Z13\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA13\" s=\"22\"/><c r=\"AB13\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"14\" spans=\"8:8\"><c r=\"A14\" s=\"20\"><v>10.0<\/v><\/c><c r=\"B14\" s=\"21\"/><c r=\"C14\" s=\"21\"/><c r=\"D14\" s=\"21\"/><c r=\"E14\" s=\"22\"/><c r=\"F14\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G14\" s=\"22\"/><c r=\"H14\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I14\" s=\"22\"/><c r=\"J14\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K14\" s=\"22\"/><c r=\"L14\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M14\" s=\"22\"/><c r=\"N14\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O14\" s=\"22\"/><c r=\"P14\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q14\" s=\"22\"/><c r=\"R14\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S14\" s=\"22\"/><c r=\"T14\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U14\" s=\"22\"/><c r=\"V14\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W14\" s=\"22\"/><c r=\"X14\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y14\" s=\"22\"/><c r=\"Z14\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA14\" s=\"22\"/><c r=\"AB14\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"15\" spans=\"8:8\"><c r=\"A15\" s=\"20\"><v>11.0<\/v><\/c><c r=\"B15\" s=\"21\"/><c r=\"C15\" s=\"21\"/><c r=\"D15\" s=\"21\"/><c r=\"E15\" s=\"22\"/><c r=\"F15\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G15\" s=\"22\"/><c r=\"H15\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I15\" s=\"22\"/><c r=\"J15\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K15\" s=\"22\"/><c r=\"L15\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M15\" s=\"22\"/><c r=\"N15\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O15\" s=\"22\"/><c r=\"P15\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q15\" s=\"22\"/><c r=\"R15\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S15\" s=\"22\"/><c r=\"T15\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U15\" s=\"22\"/><c r=\"V15\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W15\" s=\"22\"/><c r=\"X15\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y15\" s=\"22\"/><c r=\"Z15\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA15\" s=\"22\"/><c r=\"AB15\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"16\" spans=\"8:8\"><c r=\"A16\" s=\"20\"><v>12.0<\/v><\/c><c r=\"B16\" s=\"21\"/><c r=\"C16\" s=\"21\"/><c r=\"D16\" s=\"21\"/><c r=\"E16\" s=\"22\"/><c r=\"F16\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G16\" s=\"22\"/><c r=\"H16\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I16\" s=\"22\"/><c r=\"J16\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K16\" s=\"22\"/><c r=\"L16\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M16\" s=\"22\"/><c r=\"N16\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O16\" s=\"22\"/><c r=\"P16\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q16\" s=\"22\"/><c r=\"R16\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S16\" s=\"22\"/><c r=\"T16\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U16\" s=\"22\"/><c r=\"V16\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W16\" s=\"22\"/><c r=\"X16\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y16\" s=\"22\"/><c r=\"Z16\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA16\" s=\"22\"/><c r=\"AB16\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"17\" spans=\"8:8\"><c r=\"A17\" s=\"20\"><v>13.0<\/v><\/c><c r=\"B17\" s=\"21\"/><c r=\"C17\" s=\"21\"/><c r=\"D17\" s=\"21\"/><c r=\"E17\" s=\"22\"/><c r=\"F17\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G17\" s=\"22\"/><c r=\"H17\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I17\" s=\"22\"/><c r=\"J17\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K17\" s=\"22\"/><c r=\"L17\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M17\" s=\"22\"/><c r=\"N17\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O17\" s=\"22\"/><c r=\"P17\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q17\" s=\"22\"/><c r=\"R17\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S17\" s=\"22\"/><c r=\"T17\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U17\" s=\"22\"/><c r=\"V17\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W17\" s=\"22\"/><c r=\"X17\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y17\" s=\"22\"/><c r=\"Z17\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA17\" s=\"22\"/><c r=\"AB17\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"18\" spans=\"8:8\"><c r=\"A18\" s=\"20\"><v>14.0<\/v><\/c><c r=\"B18\" s=\"21\"/><c r=\"C18\" s=\"21\"/><c r=\"D18\" s=\"21\"/><c r=\"E18\" s=\"22\"/><c r=\"F18\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G18\" s=\"22\"/><c r=\"H18\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I18\" s=\"22\"/><c r=\"J18\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K18\" s=\"22\"/><c r=\"L18\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M18\" s=\"22\"/><c r=\"N18\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O18\" s=\"22\"/><c r=\"P18\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q18\" s=\"22\"/><c r=\"R18\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S18\" s=\"22\"/><c r=\"T18\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U18\" s=\"22\"/><c r=\"V18\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W18\" s=\"22\"/><c r=\"X18\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y18\" s=\"22\"/><c r=\"Z18\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA18\" s=\"22\"/><c r=\"AB18\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"19\" spans=\"8:8\"><c r=\"A19\" s=\"20\"><v>15.0<\/v><\/c><c r=\"B19\" s=\"21\"/><c r=\"C19\" s=\"21\"/><c r=\"D19\" s=\"21\"/><c r=\"E19\" s=\"22\"/><c r=\"F19\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G19\" s=\"22\"/><c r=\"H19\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I19\" s=\"22\"/><c r=\"J19\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K19\" s=\"22\"/><c r=\"L19\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M19\" s=\"22\"/><c r=\"N19\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O19\" s=\"22\"/><c r=\"P19\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q19\" s=\"22\"/><c r=\"R19\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S19\" s=\"22\"/><c r=\"T19\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U19\" s=\"22\"/><c r=\"V19\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W19\" s=\"22\"/><c r=\"X19\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y19\" s=\"22\"/><c r=\"Z19\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA19\" s=\"22\"/><c r=\"AB19\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"20\" spans=\"8:8\"><c r=\"A20\" s=\"20\"><v>16.0<\/v><\/c><c r=\"B20\" s=\"21\"/><c r=\"C20\" s=\"21\"/><c r=\"D20\" s=\"21\"/><c r=\"E20\" s=\"22\"/><c r=\"F20\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G20\" s=\"22\"/><c r=\"H20\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I20\" s=\"22\"/><c r=\"J20\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K20\" s=\"22\"/><c r=\"L20\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M20\" s=\"22\"/><c r=\"N20\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O20\" s=\"22\"/><c r=\"P20\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q20\" s=\"22\"/><c r=\"R20\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S20\" s=\"22\"/><c r=\"T20\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U20\" s=\"22\"/><c r=\"V20\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W20\" s=\"22\"/><c r=\"X20\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y20\" s=\"22\"/><c r=\"Z20\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA20\" s=\"22\"/><c r=\"AB20\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"21\" spans=\"8:8\"><c r=\"A21\" s=\"20\"><v>17.0<\/v><\/c><c r=\"B21\" s=\"21\"/><c r=\"C21\" s=\"21\"/><c r=\"D21\" s=\"21\"/><c r=\"E21\" s=\"22\"/><c r=\"F21\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G21\" s=\"22\"/><c r=\"H21\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I21\" s=\"22\"/><c r=\"J21\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K21\" s=\"22\"/><c r=\"L21\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M21\" s=\"22\"/><c r=\"N21\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O21\" s=\"22\"/><c r=\"P21\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q21\" s=\"22\"/><c r=\"R21\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S21\" s=\"22\"/><c r=\"T21\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U21\" s=\"22\"/><c r=\"V21\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W21\" s=\"22\"/><c r=\"X21\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y21\" s=\"22\"/><c r=\"Z21\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA21\" s=\"22\"/><c r=\"AB21\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"22\" spans=\"8:8\"><c r=\"A22\" s=\"20\"><v>18.0<\/v><\/c><c r=\"B22\" s=\"21\"/><c r=\"C22\" s=\"21\"/><c r=\"D22\" s=\"21\"/><c r=\"E22\" s=\"22\"/><c r=\"F22\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G22\" s=\"22\"/><c r=\"H22\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I22\" s=\"22\"/><c r=\"J22\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K22\" s=\"22\"/><c r=\"L22\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M22\" s=\"22\"/><c r=\"N22\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O22\" s=\"22\"/><c r=\"P22\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q22\" s=\"22\"/><c r=\"R22\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S22\" s=\"22\"/><c r=\"T22\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U22\" s=\"22\"/><c r=\"V22\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W22\" s=\"22\"/><c r=\"X22\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y22\" s=\"22\"/><c r=\"Z22\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA22\" s=\"22\"/><c r=\"AB22\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"23\" spans=\"8:8\"><c r=\"A23\" s=\"20\"><v>19.0<\/v><\/c><c r=\"B23\" s=\"21\"/><c r=\"C23\" s=\"21\"/><c r=\"D23\" s=\"21\"/><c r=\"E23\" s=\"22\"/><c r=\"F23\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G23\" s=\"22\"/><c r=\"H23\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I23\" s=\"22\"/><c r=\"J23\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K23\" s=\"22\"/><c r=\"L23\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M23\" s=\"22\"/><c r=\"N23\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O23\" s=\"22\"/><c r=\"P23\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q23\" s=\"22\"/><c r=\"R23\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S23\" s=\"22\"/><c r=\"T23\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U23\" s=\"22\"/><c r=\"V23\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W23\" s=\"22\"/><c r=\"X23\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y23\" s=\"22\"/><c r=\"Z23\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA23\" s=\"22\"/><c r=\"AB23\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"24\" spans=\"8:8\"><c r=\"A24\" s=\"20\"><v>20.0<\/v><\/c><c r=\"B24\" s=\"21\"/><c r=\"C24\" s=\"21\"/><c r=\"D24\" s=\"21\"/><c r=\"E24\" s=\"22\"/><c r=\"F24\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G24\" s=\"22\"/><c r=\"H24\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I24\" s=\"22\"/><c r=\"J24\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K24\" s=\"22\"/><c r=\"L24\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M24\" s=\"22\"/><c r=\"N24\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O24\" s=\"22\"/><c r=\"P24\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q24\" s=\"22\"/><c r=\"R24\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S24\" s=\"22\"/><c r=\"T24\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U24\" s=\"22\"/><c r=\"V24\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W24\" s=\"22\"/><c r=\"X24\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y24\" s=\"22\"/><c r=\"Z24\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA24\" s=\"22\"/><c r=\"AB24\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"25\" spans=\"8:8\"><c r=\"A25\" s=\"20\"><v>21.0<\/v><\/c><c r=\"B25\" s=\"21\"/><c r=\"C25\" s=\"21\"/><c r=\"D25\" s=\"21\"/><c r=\"E25\" s=\"22\"/><c r=\"F25\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G25\" s=\"22\"/><c r=\"H25\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I25\" s=\"22\"/><c r=\"J25\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K25\" s=\"22\"/><c r=\"L25\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M25\" s=\"22\"/><c r=\"N25\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O25\" s=\"22\"/><c r=\"P25\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q25\" s=\"22\"/><c r=\"R25\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S25\" s=\"22\"/><c r=\"T25\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U25\" s=\"22\"/><c r=\"V25\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W25\" s=\"22\"/><c r=\"X25\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y25\" s=\"22\"/><c r=\"Z25\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA25\" s=\"22\"/><c r=\"AB25\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"26\" spans=\"8:8\"><c r=\"A26\" s=\"20\"><v>22.0<\/v><\/c><c r=\"B26\" s=\"21\"/><c r=\"C26\" s=\"21\"/><c r=\"D26\" s=\"21\"/><c r=\"E26\" s=\"22\"/><c r=\"F26\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G26\" s=\"22\"/><c r=\"H26\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I26\" s=\"22\"/><c r=\"J26\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K26\" s=\"22\"/><c r=\"L26\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M26\" s=\"22\"/><c r=\"N26\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O26\" s=\"22\"/><c r=\"P26\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q26\" s=\"22\"/><c r=\"R26\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S26\" s=\"22\"/><c r=\"T26\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U26\" s=\"22\"/><c r=\"V26\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W26\" s=\"22\"/><c r=\"X26\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y26\" s=\"22\"/><c r=\"Z26\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA26\" s=\"22\"/><c r=\"AB26\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"27\" spans=\"8:8\"><c r=\"A27\" s=\"20\"><v>23.0<\/v><\/c><c r=\"B27\" s=\"21\"/><c r=\"C27\" s=\"21\"/><c r=\"D27\" s=\"21\"/><c r=\"E27\" s=\"22\"/><c r=\"F27\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G27\" s=\"22\"/><c r=\"H27\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I27\" s=\"22\"/><c r=\"J27\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K27\" s=\"22\"/><c r=\"L27\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M27\" s=\"22\"/><c r=\"N27\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O27\" s=\"22\"/><c r=\"P27\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q27\" s=\"22\"/><c r=\"R27\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S27\" s=\"22\"/><c r=\"T27\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U27\" s=\"22\"/><c r=\"V27\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W27\" s=\"22\"/><c r=\"X27\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y27\" s=\"22\"/><c r=\"Z27\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA27\" s=\"22\"/><c r=\"AB27\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"28\" spans=\"8:8\"><c r=\"A28\" s=\"20\"><v>24.0<\/v><\/c><c r=\"B28\" s=\"21\"/><c r=\"C28\" s=\"21\"/><c r=\"D28\" s=\"21\"/><c r=\"E28\" s=\"22\"/><c r=\"F28\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G28\" s=\"22\"/><c r=\"H28\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I28\" s=\"22\"/><c r=\"J28\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K28\" s=\"22\"/><c r=\"L28\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M28\" s=\"22\"/><c r=\"N28\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O28\" s=\"22\"/><c r=\"P28\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q28\" s=\"22\"/><c r=\"R28\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S28\" s=\"22\"/><c r=\"T28\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U28\" s=\"22\"/><c r=\"V28\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W28\" s=\"22\"/><c r=\"X28\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y28\" s=\"22\"/><c r=\"Z28\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA28\" s=\"22\"/><c r=\"AB28\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"29\" spans=\"8:8\"><c r=\"A29\" s=\"20\"><v>25.0<\/v><\/c><c r=\"B29\" s=\"21\"/><c r=\"C29\" s=\"21\"/><c r=\"D29\" s=\"21\"/><c r=\"E29\" s=\"22\"/><c r=\"F29\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G29\" s=\"22\"/><c r=\"H29\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I29\" s=\"22\"/><c r=\"J29\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K29\" s=\"22\"/><c r=\"L29\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M29\" s=\"22\"/><c r=\"N29\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O29\" s=\"22\"/><c r=\"P29\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q29\" s=\"22\"/><c r=\"R29\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S29\" s=\"22\"/><c r=\"T29\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U29\" s=\"22\"/><c r=\"V29\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W29\" s=\"22\"/><c r=\"X29\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y29\" s=\"22\"/><c r=\"Z29\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA29\" s=\"22\"/><c r=\"AB29\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"30\" spans=\"8:8\"><c r=\"A30\" s=\"20\"><v>26.0<\/v><\/c><c r=\"B30\" s=\"21\"/><c r=\"C30\" s=\"21\"/><c r=\"D30\" s=\"21\"/><c r=\"E30\" s=\"22\"/><c r=\"F30\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G30\" s=\"22\"/><c r=\"H30\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I30\" s=\"22\"/><c r=\"J30\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K30\" s=\"22\"/><c r=\"L30\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M30\" s=\"22\"/><c r=\"N30\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O30\" s=\"22\"/><c r=\"P30\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q30\" s=\"22\"/><c r=\"R30\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S30\" s=\"22\"/><c r=\"T30\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U30\" s=\"22\"/><c r=\"V30\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W30\" s=\"22\"/><c r=\"X30\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y30\" s=\"22\"/><c r=\"Z30\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA30\" s=\"22\"/><c r=\"AB30\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"31\" spans=\"8:8\"><c r=\"A31\" s=\"20\"><v>27.0<\/v><\/c><c r=\"B31\" s=\"21\"/><c r=\"C31\" s=\"21\"/><c r=\"D31\" s=\"21\"/><c r=\"E31\" s=\"22\"/><c r=\"F31\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G31\" s=\"22\"/><c r=\"H31\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I31\" s=\"22\"/><c r=\"J31\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K31\" s=\"22\"/><c r=\"L31\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M31\" s=\"22\"/><c r=\"N31\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O31\" s=\"22\"/><c r=\"P31\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q31\" s=\"22\"/><c r=\"R31\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S31\" s=\"22\"/><c r=\"T31\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U31\" s=\"22\"/><c r=\"V31\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W31\" s=\"22\"/><c r=\"X31\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y31\" s=\"22\"/><c r=\"Z31\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA31\" s=\"22\"/><c r=\"AB31\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"32\" spans=\"8:8\"><c r=\"A32\" s=\"20\"><v>28.0<\/v><\/c><c r=\"B32\" s=\"21\"/><c r=\"C32\" s=\"21\"/><c r=\"D32\" s=\"21\"/><c r=\"E32\" s=\"22\"/><c r=\"F32\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G32\" s=\"22\"/><c r=\"H32\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I32\" s=\"22\"/><c r=\"J32\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K32\" s=\"22\"/><c r=\"L32\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M32\" s=\"22\"/><c r=\"N32\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O32\" s=\"22\"/><c r=\"P32\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q32\" s=\"22\"/><c r=\"R32\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S32\" s=\"22\"/><c r=\"T32\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U32\" s=\"22\"/><c r=\"V32\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W32\" s=\"22\"/><c r=\"X32\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y32\" s=\"22\"/><c r=\"Z32\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA32\" s=\"22\"/><c r=\"AB32\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"33\" spans=\"8:8\"><c r=\"A33\" s=\"20\"><v>29.0<\/v><\/c><c r=\"B33\" s=\"21\"/><c r=\"C33\" s=\"21\"/><c r=\"D33\" s=\"21\"/><c r=\"E33\" s=\"22\"/><c r=\"F33\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G33\" s=\"22\"/><c r=\"H33\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I33\" s=\"22\"/><c r=\"J33\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K33\" s=\"22\"/><c r=\"L33\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M33\" s=\"22\"/><c r=\"N33\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O33\" s=\"22\"/><c r=\"P33\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q33\" s=\"22\"/><c r=\"R33\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S33\" s=\"22\"/><c r=\"T33\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U33\" s=\"22\"/><c r=\"V33\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W33\" s=\"22\"/><c r=\"X33\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y33\" s=\"22\"/><c r=\"Z33\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA33\" s=\"22\"/><c r=\"AB33\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"34\" spans=\"8:8\"><c r=\"A34\" s=\"20\"><v>30.0<\/v><\/c><c r=\"B34\" s=\"21\"/><c r=\"C34\" s=\"21\"/><c r=\"D34\" s=\"21\"/><c r=\"E34\" s=\"22\"/><c r=\"F34\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G34\" s=\"22\"/><c r=\"H34\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I34\" s=\"22\"/><c r=\"J34\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K34\" s=\"22\"/><c r=\"L34\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M34\" s=\"22\"/><c r=\"N34\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O34\" s=\"22\"/><c r=\"P34\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q34\" s=\"22\"/><c r=\"R34\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S34\" s=\"22\"/><c r=\"T34\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U34\" s=\"22\"/><c r=\"V34\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W34\" s=\"22\"/><c r=\"X34\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y34\" s=\"22\"/><c r=\"Z34\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA34\" s=\"22\"/><c r=\"AB34\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"35\" spans=\"8:8\"><c r=\"A35\" s=\"20\"><v>31.0<\/v><\/c><c r=\"B35\" s=\"21\"/><c r=\"C35\" s=\"21\"/><c r=\"D35\" s=\"21\"/><c r=\"E35\" s=\"22\"/><c r=\"F35\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G35\" s=\"22\"/><c r=\"H35\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I35\" s=\"22\"/><c r=\"J35\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K35\" s=\"22\"/><c r=\"L35\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M35\" s=\"22\"/><c r=\"N35\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O35\" s=\"22\"/><c r=\"P35\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q35\" s=\"22\"/><c r=\"R35\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S35\" s=\"22\"/><c r=\"T35\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U35\" s=\"22\"/><c r=\"V35\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W35\" s=\"22\"/><c r=\"X35\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y35\" s=\"22\"/><c r=\"Z35\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA35\" s=\"22\"/><c r=\"AB35\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"36\" spans=\"8:8\"><c r=\"A36\" s=\"20\"><v>32.0<\/v><\/c><c r=\"B36\" s=\"21\"/><c r=\"C36\" s=\"21\"/><c r=\"D36\" s=\"21\"/><c r=\"E36\" s=\"22\"/><c r=\"F36\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G36\" s=\"22\"/><c r=\"H36\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I36\" s=\"22\"/><c r=\"J36\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K36\" s=\"22\"/><c r=\"L36\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M36\" s=\"22\"/><c r=\"N36\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O36\" s=\"22\"/><c r=\"P36\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q36\" s=\"22\"/><c r=\"R36\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S36\" s=\"22\"/><c r=\"T36\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U36\" s=\"22\"/><c r=\"V36\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W36\" s=\"22\"/><c r=\"X36\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y36\" s=\"22\"/><c r=\"Z36\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA36\" s=\"22\"/><c r=\"AB36\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"37\" spans=\"8:8\"><c r=\"A37\" s=\"20\"><v>33.0<\/v><\/c><c r=\"B37\" s=\"21\"/><c r=\"C37\" s=\"21\"/><c r=\"D37\" s=\"21\"/><c r=\"E37\" s=\"22\"/><c r=\"F37\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G37\" s=\"22\"/><c r=\"H37\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I37\" s=\"22\"/><c r=\"J37\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K37\" s=\"22\"/><c r=\"L37\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M37\" s=\"22\"/><c r=\"N37\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O37\" s=\"22\"/><c r=\"P37\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q37\" s=\"22\"/><c r=\"R37\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S37\" s=\"22\"/><c r=\"T37\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U37\" s=\"22\"/><c r=\"V37\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W37\" s=\"22\"/><c r=\"X37\" s=\"23\"><f t=\"shared\" si=\"9\"/><v>0.0<\/v><\/c><c r=\"Y37\" s=\"22\"/><c r=\"Z37\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA37\" s=\"22\"/><c r=\"AB37\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"38\" spans=\"8:8\"><c r=\"A38\" s=\"25\"><v>34.0<\/v><\/c><c r=\"B38\" s=\"21\"/><c r=\"C38\" s=\"21\"/><c r=\"D38\" s=\"21\"/><c r=\"E38\" s=\"22\"/><c r=\"F38\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G38\" s=\"22\"/><c r=\"H38\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I38\" s=\"22\"/><c r=\"J38\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K38\" s=\"22\"/><c r=\"L38\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M38\" s=\"22\"/><c r=\"N38\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O38\" s=\"22\"/><c r=\"P38\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q38\" s=\"22\"/><c r=\"R38\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S38\" s=\"22\"/><c r=\"T38\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U38\" s=\"22\"/><c r=\"V38\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W38\" s=\"22\"/><c r=\"X38\" s=\"23\"><f>W38*60.42<\/f><v>0.0<\/v><\/c><c r=\"Y38\" s=\"22\"/><c r=\"Z38\" s=\"23\"><f t=\"shared\" si=\"10\"/><v>0.0<\/v><\/c><c r=\"AA38\" s=\"22\"/><c r=\"AB38\" s=\"23\"><f t=\"shared\" si=\"11\"/><v>0.0<\/v><\/c><\/row><row r=\"39\" spans=\"8:8\"><c r=\"A39\" s=\"26\"><v>35.0<\/v><\/c><c r=\"B39\" s=\"21\"/><c r=\"C39\" s=\"21\"/><c r=\"D39\" s=\"21\"/><c r=\"E39\" s=\"22\"/><c r=\"F39\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G39\" s=\"22\"/><c r=\"H39\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I39\" s=\"22\"/><c r=\"J39\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K39\" s=\"22\"/><c r=\"L39\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M39\" s=\"22\"/><c r=\"N39\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O39\" s=\"22\"/><c r=\"P39\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q39\" s=\"22\"/><c r=\"R39\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S39\" s=\"22\"/><c r=\"T39\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U39\" s=\"22\"/><c r=\"V39\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W39\" s=\"22\"/><c r=\"X39\" s=\"23\"><f t=\"shared\" si=\"12\" ref=\"X39:X64\">W39*60.42<\/f><v>0.0<\/v><\/c><c r=\"Y39\" s=\"22\"/><c r=\"Z39\" s=\"23\"><f>Y39*63.41<\/f><v>0.0<\/v><\/c><c r=\"AA39\" s=\"22\"/><c r=\"AB39\" s=\"23\"><f>AA39*99.7<\/f><v>0.0<\/v><\/c><\/row><row r=\"40\" spans=\"8:8\"><c r=\"A40\" s=\"26\"><v>36.0<\/v><\/c><c r=\"B40\" s=\"21\"/><c r=\"C40\" s=\"21\"/><c r=\"D40\" s=\"21\"/><c r=\"E40\" s=\"22\"/><c r=\"F40\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G40\" s=\"22\"/><c r=\"H40\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I40\" s=\"22\"/><c r=\"J40\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K40\" s=\"22\"/><c r=\"L40\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M40\" s=\"22\"/><c r=\"N40\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O40\" s=\"22\"/><c r=\"P40\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q40\" s=\"22\"/><c r=\"R40\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S40\" s=\"22\"/><c r=\"T40\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U40\" s=\"22\"/><c r=\"V40\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W40\" s=\"22\"/><c r=\"X40\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y40\" s=\"22\"/><c r=\"Z40\" s=\"23\"><f t=\"shared\" si=\"13\" ref=\"Z40:Z64\">Y40*63.41<\/f><v>0.0<\/v><\/c><c r=\"AA40\" s=\"22\"/><c r=\"AB40\" s=\"23\"><f t=\"shared\" si=\"14\" ref=\"AB40:AB64\">AA40*99.7<\/f><v>0.0<\/v><\/c><\/row><row r=\"41\" spans=\"8:8\"><c r=\"A41\" s=\"26\"><v>37.0<\/v><\/c><c r=\"B41\" s=\"21\"/><c r=\"C41\" s=\"21\"/><c r=\"D41\" s=\"21\"/><c r=\"E41\" s=\"22\"/><c r=\"F41\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G41\" s=\"22\"/><c r=\"H41\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I41\" s=\"22\"/><c r=\"J41\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K41\" s=\"22\"/><c r=\"L41\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M41\" s=\"22\"/><c r=\"N41\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O41\" s=\"22\"/><c r=\"P41\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q41\" s=\"22\"/><c r=\"R41\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S41\" s=\"22\"/><c r=\"T41\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U41\" s=\"22\"/><c r=\"V41\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W41\" s=\"22\"/><c r=\"X41\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y41\" s=\"22\"/><c r=\"Z41\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA41\" s=\"22\"/><c r=\"AB41\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"42\" spans=\"8:8\"><c r=\"A42\" s=\"26\"><v>38.0<\/v><\/c><c r=\"B42\" s=\"21\"/><c r=\"C42\" s=\"21\"/><c r=\"D42\" s=\"21\"/><c r=\"E42\" s=\"22\"/><c r=\"F42\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G42\" s=\"22\"/><c r=\"H42\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I42\" s=\"22\"/><c r=\"J42\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K42\" s=\"22\"/><c r=\"L42\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M42\" s=\"22\"/><c r=\"N42\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O42\" s=\"22\"/><c r=\"P42\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q42\" s=\"22\"/><c r=\"R42\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S42\" s=\"22\"/><c r=\"T42\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U42\" s=\"22\"/><c r=\"V42\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W42\" s=\"22\"/><c r=\"X42\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y42\" s=\"22\"/><c r=\"Z42\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA42\" s=\"22\"/><c r=\"AB42\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"43\" spans=\"8:8\"><c r=\"A43\" s=\"26\"><v>39.0<\/v><\/c><c r=\"B43\" s=\"21\"/><c r=\"C43\" s=\"21\"/><c r=\"D43\" s=\"21\"/><c r=\"E43\" s=\"22\"/><c r=\"F43\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G43\" s=\"22\"/><c r=\"H43\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I43\" s=\"22\"/><c r=\"J43\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K43\" s=\"22\"/><c r=\"L43\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M43\" s=\"22\"/><c r=\"N43\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O43\" s=\"22\"/><c r=\"P43\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q43\" s=\"22\"/><c r=\"R43\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S43\" s=\"22\"/><c r=\"T43\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U43\" s=\"22\"/><c r=\"V43\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W43\" s=\"22\"/><c r=\"X43\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y43\" s=\"22\"/><c r=\"Z43\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA43\" s=\"22\"/><c r=\"AB43\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"44\" spans=\"8:8\"><c r=\"A44\" s=\"26\"><v>40.0<\/v><\/c><c r=\"B44\" s=\"21\"/><c r=\"C44\" s=\"21\"/><c r=\"D44\" s=\"21\"/><c r=\"E44\" s=\"22\"/><c r=\"F44\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G44\" s=\"22\"/><c r=\"H44\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I44\" s=\"22\"/><c r=\"J44\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K44\" s=\"22\"/><c r=\"L44\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M44\" s=\"22\"/><c r=\"N44\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O44\" s=\"22\"/><c r=\"P44\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q44\" s=\"22\"/><c r=\"R44\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S44\" s=\"22\"/><c r=\"T44\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U44\" s=\"22\"/><c r=\"V44\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W44\" s=\"22\"/><c r=\"X44\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y44\" s=\"22\"/><c r=\"Z44\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA44\" s=\"22\"/><c r=\"AB44\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"45\" spans=\"8:8\"><c r=\"A45\" s=\"26\"><v>41.0<\/v><\/c><c r=\"B45\" s=\"21\"/><c r=\"C45\" s=\"21\"/><c r=\"D45\" s=\"21\"/><c r=\"E45\" s=\"22\"/><c r=\"F45\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G45\" s=\"22\"/><c r=\"H45\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I45\" s=\"22\"/><c r=\"J45\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K45\" s=\"22\"/><c r=\"L45\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M45\" s=\"22\"/><c r=\"N45\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O45\" s=\"22\"/><c r=\"P45\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q45\" s=\"22\"/><c r=\"R45\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S45\" s=\"22\"/><c r=\"T45\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U45\" s=\"22\"/><c r=\"V45\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W45\" s=\"22\"/><c r=\"X45\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y45\" s=\"22\"/><c r=\"Z45\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA45\" s=\"22\"/><c r=\"AB45\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"46\" spans=\"8:8\"><c r=\"A46\" s=\"26\"><v>42.0<\/v><\/c><c r=\"B46\" s=\"21\"/><c r=\"C46\" s=\"21\"/><c r=\"D46\" s=\"21\"/><c r=\"E46\" s=\"22\"/><c r=\"F46\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G46\" s=\"22\"/><c r=\"H46\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I46\" s=\"22\"/><c r=\"J46\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K46\" s=\"22\"/><c r=\"L46\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M46\" s=\"22\"/><c r=\"N46\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O46\" s=\"22\"/><c r=\"P46\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q46\" s=\"22\"/><c r=\"R46\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S46\" s=\"22\"/><c r=\"T46\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U46\" s=\"22\"/><c r=\"V46\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W46\" s=\"22\"/><c r=\"X46\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y46\" s=\"22\"/><c r=\"Z46\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA46\" s=\"22\"/><c r=\"AB46\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"47\" spans=\"8:8\"><c r=\"A47\" s=\"26\"><v>43.0<\/v><\/c><c r=\"B47\" s=\"21\"/><c r=\"C47\" s=\"21\"/><c r=\"D47\" s=\"21\"/><c r=\"E47\" s=\"22\"/><c r=\"F47\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G47\" s=\"22\"/><c r=\"H47\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I47\" s=\"22\"/><c r=\"J47\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K47\" s=\"22\"/><c r=\"L47\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M47\" s=\"22\"/><c r=\"N47\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O47\" s=\"22\"/><c r=\"P47\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q47\" s=\"22\"/><c r=\"R47\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S47\" s=\"22\"/><c r=\"T47\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U47\" s=\"22\"/><c r=\"V47\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W47\" s=\"22\"/><c r=\"X47\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y47\" s=\"22\"/><c r=\"Z47\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA47\" s=\"22\"/><c r=\"AB47\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"48\" spans=\"8:8\"><c r=\"A48\" s=\"26\"><v>44.0<\/v><\/c><c r=\"B48\" s=\"21\"/><c r=\"C48\" s=\"21\"/><c r=\"D48\" s=\"21\"/><c r=\"E48\" s=\"22\"/><c r=\"F48\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G48\" s=\"22\"/><c r=\"H48\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I48\" s=\"22\"/><c r=\"J48\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K48\" s=\"22\"/><c r=\"L48\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M48\" s=\"22\"/><c r=\"N48\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O48\" s=\"22\"/><c r=\"P48\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q48\" s=\"22\"/><c r=\"R48\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S48\" s=\"22\"/><c r=\"T48\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U48\" s=\"22\"/><c r=\"V48\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W48\" s=\"22\"/><c r=\"X48\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y48\" s=\"22\"/><c r=\"Z48\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA48\" s=\"22\"/><c r=\"AB48\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"49\" spans=\"8:8\"><c r=\"A49\" s=\"26\"><v>45.0<\/v><\/c><c r=\"B49\" s=\"21\"/><c r=\"C49\" s=\"21\"/><c r=\"D49\" s=\"21\"/><c r=\"E49\" s=\"22\"/><c r=\"F49\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G49\" s=\"22\"/><c r=\"H49\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I49\" s=\"22\"/><c r=\"J49\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K49\" s=\"22\"/><c r=\"L49\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M49\" s=\"22\"/><c r=\"N49\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O49\" s=\"22\"/><c r=\"P49\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q49\" s=\"22\"/><c r=\"R49\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S49\" s=\"22\"/><c r=\"T49\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U49\" s=\"22\"/><c r=\"V49\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W49\" s=\"22\"/><c r=\"X49\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y49\" s=\"22\"/><c r=\"Z49\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA49\" s=\"22\"/><c r=\"AB49\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"50\" spans=\"8:8\"><c r=\"A50\" s=\"26\"><v>46.0<\/v><\/c><c r=\"B50\" s=\"21\"/><c r=\"C50\" s=\"21\"/><c r=\"D50\" s=\"21\"/><c r=\"E50\" s=\"22\"/><c r=\"F50\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G50\" s=\"22\"/><c r=\"H50\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I50\" s=\"22\"/><c r=\"J50\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K50\" s=\"22\"/><c r=\"L50\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M50\" s=\"22\"/><c r=\"N50\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O50\" s=\"22\"/><c r=\"P50\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q50\" s=\"22\"/><c r=\"R50\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S50\" s=\"22\"/><c r=\"T50\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U50\" s=\"22\"/><c r=\"V50\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W50\" s=\"22\"/><c r=\"X50\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y50\" s=\"22\"/><c r=\"Z50\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA50\" s=\"22\"/><c r=\"AB50\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"51\" spans=\"8:8\"><c r=\"A51\" s=\"26\"><v>47.0<\/v><\/c><c r=\"B51\" s=\"21\"/><c r=\"C51\" s=\"21\"/><c r=\"D51\" s=\"21\"/><c r=\"E51\" s=\"22\"/><c r=\"F51\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G51\" s=\"22\"/><c r=\"H51\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I51\" s=\"22\"/><c r=\"J51\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K51\" s=\"22\"/><c r=\"L51\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M51\" s=\"22\"/><c r=\"N51\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O51\" s=\"22\"/><c r=\"P51\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q51\" s=\"22\"/><c r=\"R51\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S51\" s=\"22\"/><c r=\"T51\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U51\" s=\"22\"/><c r=\"V51\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W51\" s=\"22\"/><c r=\"X51\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y51\" s=\"22\"/><c r=\"Z51\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA51\" s=\"22\"/><c r=\"AB51\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"52\" spans=\"8:8\"><c r=\"A52\" s=\"26\"><v>48.0<\/v><\/c><c r=\"B52\" s=\"21\"/><c r=\"C52\" s=\"21\"/><c r=\"D52\" s=\"21\"/><c r=\"E52\" s=\"22\"/><c r=\"F52\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G52\" s=\"22\"/><c r=\"H52\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I52\" s=\"22\"/><c r=\"J52\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K52\" s=\"22\"/><c r=\"L52\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M52\" s=\"22\"/><c r=\"N52\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O52\" s=\"22\"/><c r=\"P52\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q52\" s=\"22\"/><c r=\"R52\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S52\" s=\"22\"/><c r=\"T52\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U52\" s=\"22\"/><c r=\"V52\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W52\" s=\"22\"/><c r=\"X52\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y52\" s=\"22\"/><c r=\"Z52\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA52\" s=\"22\"/><c r=\"AB52\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"53\" spans=\"8:8\"><c r=\"A53\" s=\"26\"><v>49.0<\/v><\/c><c r=\"B53\" s=\"21\"/><c r=\"C53\" s=\"21\"/><c r=\"D53\" s=\"21\"/><c r=\"E53\" s=\"22\"/><c r=\"F53\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G53\" s=\"22\"/><c r=\"H53\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I53\" s=\"22\"/><c r=\"J53\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K53\" s=\"22\"/><c r=\"L53\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M53\" s=\"22\"/><c r=\"N53\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O53\" s=\"22\"/><c r=\"P53\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q53\" s=\"22\"/><c r=\"R53\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S53\" s=\"22\"/><c r=\"T53\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U53\" s=\"22\"/><c r=\"V53\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W53\" s=\"22\"/><c r=\"X53\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y53\" s=\"22\"/><c r=\"Z53\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA53\" s=\"22\"/><c r=\"AB53\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"54\" spans=\"8:8\"><c r=\"A54\" s=\"26\"><v>50.0<\/v><\/c><c r=\"B54\" s=\"21\"/><c r=\"C54\" s=\"21\"/><c r=\"D54\" s=\"21\"/><c r=\"E54\" s=\"22\"/><c r=\"F54\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G54\" s=\"22\"/><c r=\"H54\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I54\" s=\"22\"/><c r=\"J54\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K54\" s=\"22\"/><c r=\"L54\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M54\" s=\"22\"/><c r=\"N54\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O54\" s=\"22\"/><c r=\"P54\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q54\" s=\"22\"/><c r=\"R54\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S54\" s=\"22\"/><c r=\"T54\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U54\" s=\"22\"/><c r=\"V54\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W54\" s=\"22\"/><c r=\"X54\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y54\" s=\"22\"/><c r=\"Z54\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA54\" s=\"22\"/><c r=\"AB54\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"55\" spans=\"8:8\"><c r=\"A55\" s=\"26\"><v>51.0<\/v><\/c><c r=\"B55\" s=\"21\"/><c r=\"C55\" s=\"21\"/><c r=\"D55\" s=\"21\"/><c r=\"E55\" s=\"22\"/><c r=\"F55\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G55\" s=\"22\"/><c r=\"H55\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I55\" s=\"22\"/><c r=\"J55\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K55\" s=\"22\"/><c r=\"L55\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M55\" s=\"22\"/><c r=\"N55\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O55\" s=\"22\"/><c r=\"P55\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q55\" s=\"22\"/><c r=\"R55\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S55\" s=\"22\"/><c r=\"T55\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U55\" s=\"22\"/><c r=\"V55\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W55\" s=\"22\"/><c r=\"X55\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y55\" s=\"22\"/><c r=\"Z55\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA55\" s=\"22\"/><c r=\"AB55\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"56\" spans=\"8:8\"><c r=\"A56\" s=\"26\"><v>52.0<\/v><\/c><c r=\"B56\" s=\"21\"/><c r=\"C56\" s=\"21\"/><c r=\"D56\" s=\"21\"/><c r=\"E56\" s=\"22\"/><c r=\"F56\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G56\" s=\"22\"/><c r=\"H56\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I56\" s=\"22\"/><c r=\"J56\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K56\" s=\"22\"/><c r=\"L56\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M56\" s=\"22\"/><c r=\"N56\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O56\" s=\"22\"/><c r=\"P56\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q56\" s=\"22\"/><c r=\"R56\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S56\" s=\"22\"/><c r=\"T56\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U56\" s=\"22\"/><c r=\"V56\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W56\" s=\"22\"/><c r=\"X56\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y56\" s=\"22\"/><c r=\"Z56\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA56\" s=\"22\"/><c r=\"AB56\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"57\" spans=\"8:8\"><c r=\"A57\" s=\"26\"><v>53.0<\/v><\/c><c r=\"B57\" s=\"21\"/><c r=\"C57\" s=\"21\"/><c r=\"D57\" s=\"21\"/><c r=\"E57\" s=\"22\"/><c r=\"F57\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G57\" s=\"22\"/><c r=\"H57\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I57\" s=\"22\"/><c r=\"J57\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K57\" s=\"22\"/><c r=\"L57\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M57\" s=\"22\"/><c r=\"N57\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O57\" s=\"22\"/><c r=\"P57\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q57\" s=\"22\"/><c r=\"R57\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S57\" s=\"22\"/><c r=\"T57\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U57\" s=\"22\"/><c r=\"V57\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W57\" s=\"22\"/><c r=\"X57\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y57\" s=\"22\"/><c r=\"Z57\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA57\" s=\"22\"/><c r=\"AB57\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"58\" spans=\"8:8\"><c r=\"A58\" s=\"26\"><v>54.0<\/v><\/c><c r=\"B58\" s=\"21\"/><c r=\"C58\" s=\"21\"/><c r=\"D58\" s=\"21\"/><c r=\"E58\" s=\"22\"/><c r=\"F58\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G58\" s=\"22\"/><c r=\"H58\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I58\" s=\"22\"/><c r=\"J58\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K58\" s=\"22\"/><c r=\"L58\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M58\" s=\"22\"/><c r=\"N58\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O58\" s=\"22\"/><c r=\"P58\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q58\" s=\"22\"/><c r=\"R58\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S58\" s=\"22\"/><c r=\"T58\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U58\" s=\"22\"/><c r=\"V58\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W58\" s=\"22\"/><c r=\"X58\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y58\" s=\"22\"/><c r=\"Z58\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA58\" s=\"22\"/><c r=\"AB58\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"59\" spans=\"8:8\"><c r=\"A59\" s=\"26\"><v>55.0<\/v><\/c><c r=\"B59\" s=\"21\"/><c r=\"C59\" s=\"21\"/><c r=\"D59\" s=\"21\"/><c r=\"E59\" s=\"22\"/><c r=\"F59\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G59\" s=\"22\"/><c r=\"H59\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I59\" s=\"22\"/><c r=\"J59\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K59\" s=\"22\"/><c r=\"L59\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M59\" s=\"22\"/><c r=\"N59\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O59\" s=\"22\"/><c r=\"P59\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q59\" s=\"22\"/><c r=\"R59\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S59\" s=\"22\"/><c r=\"T59\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U59\" s=\"22\"/><c r=\"V59\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W59\" s=\"22\"/><c r=\"X59\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y59\" s=\"22\"/><c r=\"Z59\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA59\" s=\"22\"/><c r=\"AB59\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"60\" spans=\"8:8\"><c r=\"A60\" s=\"26\"><v>56.0<\/v><\/c><c r=\"B60\" s=\"21\"/><c r=\"C60\" s=\"21\"/><c r=\"D60\" s=\"21\"/><c r=\"E60\" s=\"22\"/><c r=\"F60\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G60\" s=\"22\"/><c r=\"H60\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I60\" s=\"22\"/><c r=\"J60\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K60\" s=\"22\"/><c r=\"L60\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M60\" s=\"22\"/><c r=\"N60\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O60\" s=\"22\"/><c r=\"P60\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q60\" s=\"22\"/><c r=\"R60\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S60\" s=\"22\"/><c r=\"T60\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U60\" s=\"22\"/><c r=\"V60\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W60\" s=\"22\"/><c r=\"X60\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y60\" s=\"22\"/><c r=\"Z60\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA60\" s=\"22\"/><c r=\"AB60\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"61\" spans=\"8:8\"><c r=\"A61\" s=\"26\"><v>57.0<\/v><\/c><c r=\"B61\" s=\"21\"/><c r=\"C61\" s=\"21\"/><c r=\"D61\" s=\"21\"/><c r=\"E61\" s=\"22\"/><c r=\"F61\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G61\" s=\"22\"/><c r=\"H61\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I61\" s=\"22\"/><c r=\"J61\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K61\" s=\"22\"/><c r=\"L61\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M61\" s=\"22\"/><c r=\"N61\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O61\" s=\"22\"/><c r=\"P61\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q61\" s=\"22\"/><c r=\"R61\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S61\" s=\"22\"/><c r=\"T61\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U61\" s=\"22\"/><c r=\"V61\" s=\"24\"><f t=\"shared\" si=\"8\"/><v>0.0<\/v><\/c><c r=\"W61\" s=\"22\"/><c r=\"X61\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y61\" s=\"22\"/><c r=\"Z61\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA61\" s=\"22\"/><c r=\"AB61\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"62\" spans=\"8:8\"><c r=\"A62\" s=\"26\"><v>58.0<\/v><\/c><c r=\"B62\" s=\"21\"/><c r=\"C62\" s=\"21\"/><c r=\"D62\" s=\"21\"/><c r=\"E62\" s=\"22\"/><c r=\"F62\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G62\" s=\"22\"/><c r=\"H62\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I62\" s=\"22\"/><c r=\"J62\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K62\" s=\"22\"/><c r=\"L62\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M62\" s=\"22\"/><c r=\"N62\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O62\" s=\"22\"/><c r=\"P62\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q62\" s=\"22\"/><c r=\"R62\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S62\" s=\"22\"/><c r=\"T62\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U62\" s=\"22\"/><c r=\"V62\" s=\"24\"><f>U62*44.64<\/f><v>0.0<\/v><\/c><c r=\"W62\" s=\"22\"/><c r=\"X62\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y62\" s=\"22\"/><c r=\"Z62\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA62\" s=\"22\"/><c r=\"AB62\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"63\" spans=\"8:8\"><c r=\"A63\" s=\"26\"><v>59.0<\/v><\/c><c r=\"B63\" s=\"21\"/><c r=\"C63\" s=\"21\"/><c r=\"D63\" s=\"21\"/><c r=\"E63\" s=\"22\"/><c r=\"F63\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G63\" s=\"22\"/><c r=\"H63\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I63\" s=\"22\"/><c r=\"J63\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K63\" s=\"22\"/><c r=\"L63\" s=\"23\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M63\" s=\"22\"/><c r=\"N63\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O63\" s=\"22\"/><c r=\"P63\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q63\" s=\"22\"/><c r=\"R63\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S63\" s=\"22\"/><c r=\"T63\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U63\" s=\"22\"/><c r=\"V63\" s=\"24\"><f>U63*44.64<\/f><v>0.0<\/v><\/c><c r=\"W63\" s=\"22\"/><c r=\"X63\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y63\" s=\"22\"/><c r=\"Z63\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA63\" s=\"22\"/><c r=\"AB63\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"64\" spans=\"8:8\" ht=\"15.75\"><c r=\"A64\" s=\"27\"><v>60.0<\/v><\/c><c r=\"B64\" s=\"28\"/><c r=\"C64\" s=\"28\"/><c r=\"D64\" s=\"28\"/><c r=\"E64\" s=\"22\"/><c r=\"F64\" s=\"23\"><f t=\"shared\" si=\"0\"/><v>0.0<\/v><\/c><c r=\"G64\" s=\"22\"/><c r=\"H64\" s=\"23\"><f t=\"shared\" si=\"1\"/><v>0.0<\/v><\/c><c r=\"I64\" s=\"22\"/><c r=\"J64\" s=\"24\"><f t=\"shared\" si=\"2\"/><v>0.0<\/v><\/c><c r=\"K64\" s=\"22\"/><c r=\"L64\" s=\"29\"><f t=\"shared\" si=\"3\"/><v>0.0<\/v><\/c><c r=\"M64\" s=\"22\"/><c r=\"N64\" s=\"23\"><f t=\"shared\" si=\"4\"/><v>0.0<\/v><\/c><c r=\"O64\" s=\"22\"/><c r=\"P64\" s=\"23\"><f t=\"shared\" si=\"5\"/><v>0.0<\/v><\/c><c r=\"Q64\" s=\"22\"/><c r=\"R64\" s=\"23\"><f t=\"shared\" si=\"6\"/><v>0.0<\/v><\/c><c r=\"S64\" s=\"22\"/><c r=\"T64\" s=\"24\"><f t=\"shared\" si=\"7\"/><v>0.0<\/v><\/c><c r=\"U64\" s=\"22\"/><c r=\"V64\" s=\"24\"><f>U64*44.64<\/f><v>0.0<\/v><\/c><c r=\"W64\" s=\"22\"/><c r=\"X64\" s=\"23\"><f t=\"shared\" si=\"12\"/><v>0.0<\/v><\/c><c r=\"Y64\" s=\"22\"/><c r=\"Z64\" s=\"23\"><f t=\"shared\" si=\"13\"/><v>0.0<\/v><\/c><c r=\"AA64\" s=\"22\"/><c r=\"AB64\" s=\"23\"><f t=\"shared\" si=\"14\"/><v>0.0<\/v><\/c><\/row><row r=\"65\" spans=\"8:8\" ht=\"15.75\"><c r=\"A65\" s=\"30\" t=\"s\"><v>15<\/v><\/c><c r=\"B65\" s=\"31\"/><c r=\"C65\" s=\"31\"/><c r=\"D65\" s=\"32\"/><c r=\"E65\" s=\"33\"><f t=\"shared\" si=\"15\" ref=\"E65:AB65\">SUM(E6:E64)<\/f><v>0.0<\/v><\/c><c r=\"F65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"G65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"H65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"I65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"J65\" s=\"34\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"K65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"L65\" s=\"35\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"M65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"N65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"O65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"P65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"Q65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"R65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"S65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"T65\" s=\"34\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"U65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"V65\" s=\"34\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"W65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"X65\" s=\"35\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"Y65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"Z65\" s=\"35\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"AA65\" s=\"33\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><c r=\"AB65\" s=\"35\"><f t=\"shared\" si=\"15\"/><v>0.0<\/v><\/c><\/row><\/sheetData><mergeCells count=\"18\"><mergeCell ref=\"A65:D65\"/><mergeCell ref=\"A1:AB3\"/><mergeCell ref=\"B4:B5\"/><mergeCell ref=\"A4:A5\"/><mergeCell ref=\"S4:T4\"/><mergeCell ref=\"K4:L4\"/><mergeCell ref=\"I4:J4\"/><mergeCell ref=\"G4:H4\"/><mergeCell ref=\"E4:F4\"/><mergeCell ref=\"O4:P4\"/><mergeCell ref=\"M4:N4\"/><mergeCell ref=\"AA4:AB4\"/><mergeCell ref=\"C4:C5\"/><mergeCell ref=\"Q4:R4\"/><mergeCell ref=\"W4:X4\"/><mergeCell ref=\"U4:V4\"/><mergeCell ref=\"Y4:Z4\"/><mergeCell ref=\"D4:D5\"/><\/mergeCells><pageMargins left=\"0.7\" right=\"0.7\" top=\"0.75\" bottom=\"0.75\" header=\"0.3\" footer=\"0.3\"/><\/worksheet>",wb:"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<workbook xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><fileVersion appName=\"xl\" lastEdited=\"7\" lowestEdited=\"4\" rupBuild=\"29127\"/><workbookPr defaultThemeVersion=\"153222\"/><bookViews><workbookView xWindow=\"-120\" yWindow=\"-120\" windowWidth=\"29040\" windowHeight=\"15720\" activeTab=\"@@ACTIVE@@\"/><\/bookViews><sheets><sheet name=\"Sat\" sheetId=\"1\" r:id=\"rId1\"/><sheet name=\"Sun\" sheetId=\"2\" r:id=\"rId2\"/><sheet name=\"Mon\" sheetId=\"3\" r:id=\"rId3\"/><sheet name=\"Tues\" sheetId=\"7\" r:id=\"rId4\"/><sheet name=\"Wed\" sheetId=\"5\" r:id=\"rId5\"/><sheet name=\"Thu\" sheetId=\"6\" r:id=\"rId6\"/><\/sheets><calcPr calcId=\"191029\" fullCalcOnLoad=\"1\"/><extLst><ext uri=\"{140A7094-0E35-4892-8432-C4D2E57EDEB5}\" xmlns:x15=\"http://schemas.microsoft.com/office/spreadsheetml/2010/11/main\"><x15:workbookPr chartTrackingRefBase=\"1\"/><\/ext><\/extLst><\/workbook>",ct:"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/><Default Extension=\"xml\" ContentType=\"application/xml\"/><Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/><Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/worksheets/sheet2.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/worksheets/sheet3.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/worksheets/sheet4.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/worksheets/sheet5.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/worksheets/sheet6.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/sharedStrings.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml\"/><Override PartName=\"/xl/styles.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml\"/><Override PartName=\"/xl/theme/theme1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.theme+xml\"/><\/Types>",rels:"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/><\/Relationships>",wbrels:"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\"/><Relationship Id=\"rId2\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet2.xml\"/><Relationship Id=\"rId3\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet3.xml\"/><Relationship Id=\"rId4\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet4.xml\"/><Relationship Id=\"rId5\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet5.xml\"/><Relationship Id=\"rId6\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet6.xml\"/><Relationship Id=\"rId8\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings\" Target=\"sharedStrings.xml\"/><Relationship Id=\"rId9\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles\" Target=\"styles.xml\"/><Relationship Id=\"rId10\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme\" Target=\"theme/theme1.xml\"/><\/Relationships>",styles:"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<styleSheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><numFmts count=\"2\"><numFmt numFmtId=\"0\" formatCode=\"General\"/><numFmt numFmtId=\"164\" formatCode=\"#,##0.0\"/><\/numFmts><fonts count=\"7\"><font><name val=\"Calibri\"/><sz val=\"11\"/><\/font><font><name val=\"Calibri\"/><b/><sz val=\"36\"/><color rgb=\"FFE7E6E6\"/><\/font><font><name val=\"Calibri\"/><sz val=\"11\"/><color rgb=\"FF000000\"/><\/font><font><name val=\"Calibri\"/><b/><sz val=\"14\"/><color rgb=\"FF000000\"/><\/font><font><name val=\"Calibri\"/><b/><sz val=\"14\"/><\/font><font><name val=\"Calibri\"/><sz val=\"11\"/><\/font><font><name val=\"Calibri\"/><b/><sz val=\"11\"/><color rgb=\"FF000000\"/><\/font><\/fonts><fills count=\"6\"><fill><patternFill patternType=\"none\"/><\/fill><fill><patternFill patternType=\"gray125\"/><\/fill><fill><patternFill patternType=\"solid\"><fgColor rgb=\"FF5B9BD5\"/><bgColor indexed=\"64\"/><\/patternFill><\/fill><fill><patternFill patternType=\"solid\"><fgColor rgb=\"FFC6E0B4\"/><bgColor indexed=\"64\"/><\/patternFill><\/fill><fill><patternFill patternType=\"solid\"><fgColor rgb=\"FFA5A5A5\"/><bgColor rgb=\"FFA5A5A5\"/><\/patternFill><\/fill><fill><patternFill patternType=\"solid\"><fgColor rgb=\"FFAEAAAA\"/><bgColor indexed=\"64\"/><\/patternFill><\/fill><\/fills><borders count=\"22\"><border><left/><right/><top/><bottom/><diagonal/><\/border><border><left style=\"medium\"><color indexed=\"64\"/><\/left><right/><top/><bottom/><diagonal/><\/border><border><left style=\"medium\"><color indexed=\"64\"/><\/left><right/><top/><bottom style=\"medium\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left/><right/><top/><bottom style=\"medium\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left style=\"medium\"><color indexed=\"64\"/><\/left><right style=\"medium\"><color indexed=\"64\"/><\/right><top style=\"medium\"><color indexed=\"64\"/><\/top><bottom/><diagonal/><\/border><border><left style=\"medium\"><color indexed=\"64\"/><\/left><right/><top style=\"medium\"><color indexed=\"64\"/><\/top><bottom style=\"medium\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left/><right style=\"medium\"><color indexed=\"64\"/><\/right><top style=\"medium\"><color indexed=\"64\"/><\/top><bottom style=\"medium\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left style=\"medium\"><color indexed=\"64\"/><\/left><right style=\"medium\"><color indexed=\"64\"/><\/right><top/><bottom style=\"medium\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left style=\"medium\"><color indexed=\"64\"/><\/left><right style=\"medium\"><color indexed=\"64\"/><\/right><top/><bottom/><diagonal/><\/border><border><left style=\"thin\"><color rgb=\"FF000000\"/><\/left><right/><top/><bottom style=\"thin\"><color rgb=\"FF000000\"/><\/bottom><diagonal/><\/border><border><left style=\"thin\"><color indexed=\"64\"/><\/left><right style=\"thin\"><color indexed=\"64\"/><\/right><top/><bottom style=\"thin\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left/><right/><top/><bottom style=\"thin\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left style=\"medium\"><color indexed=\"64\"/><\/left><right style=\"medium\"><color indexed=\"64\"/><\/right><top/><bottom style=\"thin\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left style=\"thin\"><color rgb=\"FF000000\"/><\/left><right/><top style=\"thin\"><color rgb=\"FF000000\"/><\/top><bottom style=\"thin\"><color rgb=\"FF000000\"/><\/bottom><diagonal/><\/border><border><left style=\"thin\"><color indexed=\"64\"/><\/left><right style=\"thin\"><color indexed=\"64\"/><\/right><top style=\"thin\"><color indexed=\"64\"/><\/top><bottom style=\"thin\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left/><right/><top style=\"thin\"><color indexed=\"64\"/><\/top><bottom style=\"thin\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left style=\"thin\"><color rgb=\"FF000000\"/><\/left><right/><top style=\"thin\"><color rgb=\"FF000000\"/><\/top><bottom/><diagonal/><\/border><border><left style=\"thin\"><color indexed=\"64\"/><\/left><right/><top style=\"thin\"><color indexed=\"64\"/><\/top><bottom style=\"thin\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left style=\"thin\"><color indexed=\"64\"/><\/left><right/><top style=\"thin\"><color indexed=\"64\"/><\/top><bottom/><diagonal/><\/border><border><left style=\"thin\"><color indexed=\"64\"/><\/left><right style=\"thin\"><color indexed=\"64\"/><\/right><top style=\"thin\"><color indexed=\"64\"/><\/top><bottom/><diagonal/><\/border><border><left/><right/><top style=\"medium\"><color indexed=\"64\"/><\/top><bottom style=\"medium\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><border><left style=\"medium\"><color indexed=\"64\"/><\/left><right style=\"medium\"><color indexed=\"64\"/><\/right><top style=\"medium\"><color indexed=\"64\"/><\/top><bottom style=\"medium\"><color indexed=\"64\"/><\/bottom><diagonal/><\/border><\/borders><cellStyleXfs count=\"1\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\"><alignment vertical=\"center\"/><\/xf><\/cellStyleXfs><cellXfs count=\"36\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\" xfId=\"0\"><alignment vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"1\" fillId=\"2\" borderId=\"1\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"bottom\"/><\/xf><xf numFmtId=\"0\" fontId=\"1\" fillId=\"2\" borderId=\"0\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"bottom\"/><\/xf><xf numFmtId=\"0\" fontId=\"1\" fillId=\"2\" borderId=\"2\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"bottom\"/><\/xf><xf numFmtId=\"0\" fontId=\"1\" fillId=\"2\" borderId=\"3\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"bottom\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"4\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"3\" fillId=\"0\" borderId=\"4\" xfId=\"0\" applyFont=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"3\" fillId=\"3\" borderId=\"5\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"4\" fillId=\"3\" borderId=\"6\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"3\" fillId=\"3\" borderId=\"6\" xfId=\"0\" applyFont=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"5\" fillId=\"0\" borderId=\"7\" xfId=\"0\" applyFont=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment vertical=\"bottom\"/><\/xf><xf numFmtId=\"0\" fontId=\"3\" fillId=\"0\" borderId=\"8\" xfId=\"0\" applyFont=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"4\" fillId=\"0\" borderId=\"8\" xfId=\"0\" applyFont=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"3\" fillId=\"0\" borderId=\"4\" xfId=\"0\" applyFont=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"6\" fillId=\"0\" borderId=\"4\" xfId=\"0\" applyFont=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"9\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\" readingOrder=\"2\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"10\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"11\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"164\" fontId=\"2\" fillId=\"0\" borderId=\"12\" xfId=\"0\" applyNumberFormat=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"12\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"13\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\" readingOrder=\"2\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"14\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"15\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"164\" fontId=\"2\" fillId=\"0\" borderId=\"12\" xfId=\"0\" applyNumberFormat=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"12\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"16\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\" readingOrder=\"2\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"17\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\" readingOrder=\"2\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"18\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\" readingOrder=\"2\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"19\" xfId=\"0\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"164\" fontId=\"2\" fillId=\"0\" borderId=\"8\" xfId=\"0\" applyNumberFormat=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"4\" borderId=\"5\" xfId=\"0\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"4\" borderId=\"20\" xfId=\"0\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"4\" borderId=\"6\" xfId=\"0\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"164\" fontId=\"2\" fillId=\"4\" borderId=\"21\" xfId=\"0\" applyNumberFormat=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"0\" fontId=\"2\" fillId=\"4\" borderId=\"21\" xfId=\"0\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><xf numFmtId=\"164\" fontId=\"2\" fillId=\"5\" borderId=\"21\" xfId=\"0\" applyNumberFormat=\"1\" applyFill=\"1\" applyBorder=\"1\" applyAlignment=\"1\"><alignment horizontal=\"center\" vertical=\"center\"/><\/xf><\/cellXfs><cellStyles count=\"1\"><cellStyle name=\"常规\" xfId=\"0\" builtinId=\"0\"/><\/cellStyles><dxfs count=\"0\"/><tableStyles defaultTableStyle=\"TableStyleMedium2\" defaultPivotStyle=\"PivotStyleLight16\" count=\"0\"/><\/styleSheet>",theme:"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<a:theme xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" name=\"Office Theme\"><a:themeElements><a:clrScheme name=\"Office\"><a:dk1><a:sysClr val=\"windowText\" lastClr=\"000000\"/><\/a:dk1><a:lt1><a:sysClr val=\"window\" lastClr=\"FFFFFF\"/><\/a:lt1><a:dk2><a:srgbClr val=\"44546A\"/><\/a:dk2><a:lt2><a:srgbClr val=\"E7E6E6\"/><\/a:lt2><a:accent1><a:srgbClr val=\"5B9BD5\"/><\/a:accent1><a:accent2><a:srgbClr val=\"ED7D31\"/><\/a:accent2><a:accent3><a:srgbClr val=\"A5A5A5\"/><\/a:accent3><a:accent4><a:srgbClr val=\"FFC000\"/><\/a:accent4><a:accent5><a:srgbClr val=\"4472C4\"/><\/a:accent5><a:accent6><a:srgbClr val=\"70AD47\"/><\/a:accent6><a:hlink><a:srgbClr val=\"0563C1\"/><\/a:hlink><a:folHlink><a:srgbClr val=\"954F72\"/><\/a:folHlink><\/a:clrScheme><a:fontScheme name=\"Office\"><a:majorFont><a:latin typeface=\"Calibri Light\" panose=\"020F0302020204030204\"/><a:ea typeface=\"\"/><a:cs typeface=\"\"/><a:font script=\"Jpan\" typeface=\"游ゴシック Light\"/><a:font script=\"Hang\" typeface=\"맑은 고딕\"/><a:font script=\"Hans\" typeface=\"等线 Light\"/><a:font script=\"Hant\" typeface=\"新細明體\"/><a:font script=\"Arab\" typeface=\"Times New Roman\"/><a:font script=\"Hebr\" typeface=\"Times New Roman\"/><a:font script=\"Thai\" typeface=\"Tahoma\"/><a:font script=\"Ethi\" typeface=\"Nyala\"/><a:font script=\"Beng\" typeface=\"Vrinda\"/><a:font script=\"Gujr\" typeface=\"Shruti\"/><a:font script=\"Khmr\" typeface=\"MoolBoran\"/><a:font script=\"Knda\" typeface=\"Tunga\"/><a:font script=\"Guru\" typeface=\"Raavi\"/><a:font script=\"Cans\" typeface=\"Euphemia\"/><a:font script=\"Cher\" typeface=\"Plantagenet Cherokee\"/><a:font script=\"Yiii\" typeface=\"Microsoft Yi Baiti\"/><a:font script=\"Tibt\" typeface=\"Microsoft Himalaya\"/><a:font script=\"Thaa\" typeface=\"MV Boli\"/><a:font script=\"Deva\" typeface=\"Mangal\"/><a:font script=\"Telu\" typeface=\"Gautami\"/><a:font script=\"Taml\" typeface=\"Latha\"/><a:font script=\"Syrc\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Orya\" typeface=\"Kalinga\"/><a:font script=\"Mlym\" typeface=\"Kartika\"/><a:font script=\"Laoo\" typeface=\"DokChampa\"/><a:font script=\"Sinh\" typeface=\"Iskoola Pota\"/><a:font script=\"Mong\" typeface=\"Mongolian Baiti\"/><a:font script=\"Viet\" typeface=\"Times New Roman\"/><a:font script=\"Uigh\" typeface=\"Microsoft Uighur\"/><a:font script=\"Geor\" typeface=\"Sylfaen\"/><\/a:majorFont><a:minorFont><a:latin typeface=\"Calibri\" panose=\"020F0502020204030204\"/><a:ea typeface=\"\"/><a:cs typeface=\"\"/><a:font script=\"Jpan\" typeface=\"游ゴシック\"/><a:font script=\"Hang\" typeface=\"맑은 고딕\"/><a:font script=\"Hans\" typeface=\"等线\"/><a:font script=\"Hant\" typeface=\"新細明體\"/><a:font script=\"Arab\" typeface=\"Arial\"/><a:font script=\"Hebr\" typeface=\"Arial\"/><a:font script=\"Thai\" typeface=\"Tahoma\"/><a:font script=\"Ethi\" typeface=\"Nyala\"/><a:font script=\"Beng\" typeface=\"Vrinda\"/><a:font script=\"Gujr\" typeface=\"Shruti\"/><a:font script=\"Khmr\" typeface=\"DaunPenh\"/><a:font script=\"Knda\" typeface=\"Tunga\"/><a:font script=\"Guru\" typeface=\"Raavi\"/><a:font script=\"Cans\" typeface=\"Euphemia\"/><a:font script=\"Cher\" typeface=\"Plantagenet Cherokee\"/><a:font script=\"Yiii\" typeface=\"Microsoft Yi Baiti\"/><a:font script=\"Tibt\" typeface=\"Microsoft Himalaya\"/><a:font script=\"Thaa\" typeface=\"MV Boli\"/><a:font script=\"Deva\" typeface=\"Mangal\"/><a:font script=\"Telu\" typeface=\"Gautami\"/><a:font script=\"Taml\" typeface=\"Latha\"/><a:font script=\"Syrc\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Orya\" typeface=\"Kalinga\"/><a:font script=\"Mlym\" typeface=\"Kartika\"/><a:font script=\"Laoo\" typeface=\"DokChampa\"/><a:font script=\"Sinh\" typeface=\"Iskoola Pota\"/><a:font script=\"Mong\" typeface=\"Mongolian Baiti\"/><a:font script=\"Viet\" typeface=\"Arial\"/><a:font script=\"Uigh\" typeface=\"Microsoft Uighur\"/><a:font script=\"Geor\" typeface=\"Sylfaen\"/><\/a:minorFont><\/a:fontScheme><a:fmtScheme name=\"Office\"><a:fillStyleLst><a:solidFill><a:schemeClr val=\"phClr\"/><\/a:solidFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:lumMod val=\"110000\"/><a:satMod val=\"105000\"/><a:tint val=\"67000\"/><\/a:schemeClr><\/a:gs><a:gs pos=\"50000\"><a:schemeClr val=\"phClr\"><a:lumMod val=\"105000\"/><a:satMod val=\"103000\"/><a:tint val=\"73000\"/><\/a:schemeClr><\/a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:lumMod val=\"105000\"/><a:satMod val=\"109000\"/><a:tint val=\"81000\"/><\/a:schemeClr><\/a:gs><\/a:gsLst><a:lin ang=\"5400000\" scaled=\"0\"/><\/a:gradFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:satMod val=\"103000\"/><a:lumMod val=\"102000\"/><a:tint val=\"94000\"/><\/a:schemeClr><\/a:gs><a:gs pos=\"50000\"><a:schemeClr val=\"phClr\"><a:satMod val=\"110000\"/><a:lumMod val=\"100000\"/><a:shade val=\"100000\"/><\/a:schemeClr><\/a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:lumMod val=\"99000\"/><a:satMod val=\"120000\"/><a:shade val=\"78000\"/><\/a:schemeClr><\/a:gs><\/a:gsLst><a:lin ang=\"5400000\" scaled=\"0\"/><\/a:gradFill><\/a:fillStyleLst><a:lnStyleLst><a:ln w=\"6350\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\"><a:solidFill><a:schemeClr val=\"phClr\"/><\/a:solidFill><a:prstDash val=\"solid\"/><a:miter lim=\"800000\"/><\/a:ln><a:ln w=\"12700\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\"><a:solidFill><a:schemeClr val=\"phClr\"/><\/a:solidFill><a:prstDash val=\"solid\"/><a:miter lim=\"800000\"/><\/a:ln><a:ln w=\"19050\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\"><a:solidFill><a:schemeClr val=\"phClr\"/><\/a:solidFill><a:prstDash val=\"solid\"/><a:miter lim=\"800000\"/><\/a:ln><\/a:lnStyleLst><a:effectStyleLst><a:effectStyle><a:effectLst/><\/a:effectStyle><a:effectStyle><a:effectLst/><\/a:effectStyle><a:effectStyle><a:effectLst><a:outerShdw blurRad=\"57150\" dist=\"19050\" dir=\"5400000\" algn=\"ctr\" rotWithShape=\"0\"><a:srgbClr val=\"000000\"><a:alpha val=\"63000\"/><\/a:srgbClr><\/a:outerShdw><\/a:effectLst><\/a:effectStyle><\/a:effectStyleLst><a:bgFillStyleLst><a:solidFill><a:schemeClr val=\"phClr\"/><\/a:solidFill><a:solidFill><a:schemeClr val=\"phClr\"><a:tint val=\"95000\"/><a:satMod val=\"170000\"/><\/a:schemeClr><\/a:solidFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:tint val=\"93000\"/><a:satMod val=\"150000\"/><a:shade val=\"98000\"/><a:lumMod val=\"102000\"/><\/a:schemeClr><\/a:gs><a:gs pos=\"50000\"><a:schemeClr val=\"phClr\"><a:tint val=\"98000\"/><a:satMod val=\"130000\"/><a:shade val=\"90000\"/><a:lumMod val=\"103000\"/><\/a:schemeClr><\/a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:shade val=\"63000\"/><a:satMod val=\"120000\"/><\/a:schemeClr><\/a:gs><\/a:gsLst><a:lin ang=\"5400000\" scaled=\"0\"/><\/a:gradFill><\/a:bgFillStyleLst><\/a:fmtScheme><\/a:themeElements><a:objectDefaults/><a:extraClrSchemeLst/><\/a:theme>",ss:"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<sst uniqueCount=\"25\" count=\"25\" xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><si><t>Saturday<\/t><\/si><si><t>م<\/t><\/si><si><t>MR<\/t><\/si><si><t>Pharmacy Name<\/t><\/si><si><t>Dist<\/t><\/si><si><t>Erectalis<\/t><\/si><si><t>Delepe 60<\/t><\/si><si><t>Ampro 20<\/t><\/si><si><t>Imoflora<\/t><\/si><si><t>Renimark<\/t><\/si><si><t>Pentaflu<\/t><\/si><si><t>Pentacold<\/t><\/si><si><t>Vicksolytic<\/t><\/si><si><t>العدد<\/t><\/si><si><t>القيمة<\/t><\/si><si><t>الاجمالي<\/t><\/si><si><t>Sunday<\/t><\/si><si><t>Monday<\/t><\/si><si><t>Tuesday<\/t><\/si><si><t>Wednesday<\/t><\/si><si><t>Thursday<\/t><\/si><si><t>Pentamolfen<\/t><\/si><si><t>NonoPent<\/t><\/si><si><t>Purgolaxin<\/t><\/si><si><t>Welgazole<\/t><\/si><\/sst>"};
+
+const XL_MR="محسن";
+const XL_TABS=[["Sat",0],["Sun",16],["Mon",17],["Tues",18],["Wed",19],["Thu",20]];
+const xlN=s=>String(s||"").replace(/[\u064B-\u065F\u0640\s]/g,"").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").toLowerCase();
+const XL_AR={
+  E:["اريكتاليس","ايركتاليس","erectalis"],
+  G:["ديلبي","delepe","delpe"],
+  I:["امبروبرو","امبرو برو","ampro"],
+  K:["بنتامولفين","بنتامولفن","pentamolfen"],
+  M:["بنتافلو","بنتا فلو","pentaflu"],
+  O:["بنتاكولد","بنتا كولد","pentacold"],
+  Q:["فيكسوليتيك","فكسوليتيك","فيكسوليتك","vicksolytic"],
+  S:["رينيمارك","ريني مارك","رينمارك","renimark"],
+  U:["ايموفلورا","اموفلورا","imoflora"],
+  W:["نونوبنت","نونو بنت","nonopent"],
+  Y:["بيرجولاكسين","بورجولاكسين","بيرجولاكسن","purgolaxin"],
+  AA:["ويلجازول","ويل جازول","ولجازول","welgazole"]
+};
+const XL_COLS_ALL=Object.keys(XL_AR);
+const XL_DEF=["G","E","I","K"];
+const XL_AL=[];XL_COLS_ALL.forEach(c=>XL_AR[c].forEach(a=>XL_AL.push([xlN(a),c])));
+function xlColFor(name,i){
+  const n=xlN(name);
+  if(n){
+    let h=XL_AL.find(([a])=>a===n);if(h)return h[1];
+    h=XL_AL.find(([a])=>a.length>=4&&(n.includes(a)||(n.length>=5&&a.includes(n))));if(h)return h[1];
+    let b=null;
+    XL_AL.forEach(([a,c])=>{if(a.length<4||n.length<4)return;const s=vSim(n,a);if(s>=0.78&&(!b||s>b.s))b={c,s}});
+    if(b)return b.c;
+  }
+  return i<4?XL_DEF[i]:null;
+}
+const xlE=s=>String(s==null?"":s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const xlColNum=c=>{let n=0;for(const ch of c)n=n*26+ch.charCodeAt(0)-64;return n};
+const xlColName=n=>{let s="";while(n>0){const m=(n-1)%26;s=String.fromCharCode(65+m)+s;n=Math.floor((n-1)/26)}return s};
+const xlCrcT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const xlCrc=b=>{let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=xlCrcT[(c^b[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0};
+function xlZip(files){
+  const enc=new TextEncoder(),loc=[],cen=[];let off=0;
+  files.forEach(([name,txt])=>{
+    const nb=enc.encode(name),db=enc.encode(txt),crc=xlCrc(db);
+    const lh=new DataView(new ArrayBuffer(30));
+    lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint16(8,0,true);
+    lh.setUint16(10,0,true);lh.setUint16(12,0x21,true);lh.setUint32(14,crc,true);lh.setUint32(18,db.length,true);lh.setUint32(22,db.length,true);
+    lh.setUint16(26,nb.length,true);lh.setUint16(28,0,true);
+    const ch=new DataView(new ArrayBuffer(46));
+    ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint16(10,0,true);
+    ch.setUint16(12,0,true);ch.setUint16(14,0x21,true);ch.setUint32(16,crc,true);ch.setUint32(20,db.length,true);ch.setUint32(24,db.length,true);
+    ch.setUint16(28,nb.length,true);ch.setUint32(42,off,true);
+    loc.push(new Uint8Array(lh.buffer),nb,db);cen.push(new Uint8Array(ch.buffer),nb);
+    off+=30+nb.length+db.length;
+  });
+  const cs=cen.reduce((a,b)=>a+b.length,0),eo=new DataView(new ArrayBuffer(22));
+  eo.setUint32(0,0x06054b50,true);eo.setUint16(8,files.length,true);eo.setUint16(10,files.length,true);eo.setUint32(12,cs,true);eo.setUint32(16,off,true);
+  const all=[...loc,...cen,new Uint8Array(eo.buffer)],out=new Uint8Array(all.reduce((a,b)=>a+b.length,0));
+  let p=0;all.forEach(b=>{out.set(b,p);p+=b.length});return out;
+}
+
+/* يبني تاب واحد من قالب الشيت القديم: بنملّي الاسم والموزع والكميات بس، والمعادلات والتنسيق زي ما هم */
+function xlSheet(strIdx,active,rows){
+  let t=XW.sheet;
+  const pr={};
+  t.replace(/<f t="shared" si="(\d+)" ref="[^"]+">[A-Z]+\d+\*([0-9.]+)<\/f>/g,(m,si,p)=>{pr[si]=+p;return m});
+  t=t.replace(/<sheetViews>[\s\S]*?<\/sheetViews>/,'<sheetViews><sheetView '+(active?'tabSelected="1" ':'')+'workbookViewId="0" zoomScale="80"><pane xSplit="4" ySplit="5" topLeftCell="E6" state="frozen" activePane="bottomRight"/><selection pane="bottomRight" activeCell="E6" sqref="E6"/></sheetView></sheetViews>');
+  t=t.replace('<c r="A1" s="1" t="s"><v>0</v></c>','<c r="A1" s="1" t="s"><v>'+strIdx+'</v></c>');
+  const cnt={},val={};
+  XL_COLS_ALL.forEach(c=>{cnt[c]=0;val[c]=0});
+  const setCached=(rs,ref,v)=>{
+    const m=rs.match(new RegExp('<c r="'+ref+'"[^>]*><f[^>]*?(?:/>|>[^<]*</f>)'));
+    if(!m)return rs;
+    const i=rs.indexOf(m[0])+m[0].length;
+    return rs.slice(0,i)+rs.slice(i).replace(/^<v>[^<]*<\/v>/,'<v>'+v+'</v>');
+  };
+  const priceOf=(rs,ref)=>{
+    const m=rs.match(new RegExp('<c r="'+ref+'"[^>]*>(<f[^>]*?(?:/>|>[^<]*</f>))'));
+    if(!m)return 0;
+    const tx=(m[1].match(/>([^<]*)<\/f>/)||[])[1];
+    if(tx){const pm=tx.match(/\*([0-9.]+)/);return pm?+pm[1]:0}
+    const si=(m[1].match(/si="(\d+)"/)||[])[1];
+    return si!==undefined?(pr[si]||0):0;
+  };
+  t=t.replace(/<row r="(\d+)"[^>]*>[\s\S]*?<\/row>/g,(rs,rn)=>{
+    rn=+rn;
+    const set=(ref,inner)=>{rs=rs.replace(new RegExp('<c r="'+ref+'" s="(\\d+)"/>'),(m,s)=>'<c r="'+ref+'" s="'+s+'"'+inner)};
+    if(rn>=6&&rn<=64&&rows[rn-6]){
+      const r=rows[rn-6];
+      set("B"+rn,' t="inlineStr"><is><t xml:space="preserve">'+xlE(XL_MR)+'</t></is></c>');
+      set("C"+rn,' t="inlineStr"><is><t xml:space="preserve">'+xlE(r.n)+'</t></is></c>');
+      if(r.d)set("D"+rn,' t="inlineStr"><is><t xml:space="preserve">'+xlE(r.d)+'</t></is></c>');
+      Object.keys(r.v).forEach(c=>{
+        const q=r.v[c];if(!q)return;
+        set(c+rn,'><v>'+q+'</v></c>');
+        const vc=xlColName(xlColNum(c)+1);
+        const v=Math.round(q*priceOf(rs,vc+rn)*1e6)/1e6;
+        rs=setCached(rs,vc+rn,v);
+        cnt[c]+=q;val[c]+=v;
+      });
+    }else if(rn===65){
+      XL_COLS_ALL.forEach(c=>{
+        const vc=xlColName(xlColNum(c)+1);
+        rs=setCached(rs,c+"65",cnt[c]);
+        rs=setCached(rs,vc+"65",Math.round(val[c]*1e6)/1e6);
+      });
+    }
+    return rs;
+  });
+  return t;
+}
+function xlBuildWeek(days,active){
+  const sheets=days.map((d,k)=>["xl/worksheets/sheet"+(k+1)+".xml",xlSheet(XL_TABS[k][1],k===active,d.rows)]);
+  return xlZip([
+    ["[Content_Types].xml",XW.ct],["_rels/.rels",XW.rels],
+    ["xl/workbook.xml",XW.wb.replace("@@ACTIVE@@",String(active))],["xl/_rels/workbook.xml.rels",XW.wbrels],
+    ["xl/styles.xml",XW.styles],["xl/theme/theme1.xml",XW.theme],["xl/sharedStrings.xml",XW.ss],
+    ...sheets
+  ]);
+}
+function xlRowsForDay(day){
+  const map={},unmapped=new Set();
+  S.items.forEach((it,i)=>{if(it.x)return;const c=xlColFor(it.n,i);if(c)map[i]=c;else unmapped.add(i)});
+  const rows=[],lost=new Set();let empty=0;
+  (S.days[day]||[]).forEach(c=>{
+    const v={};let any=0;
+    Object.keys(map).forEach(i=>{const q=Number(c.q[i])||0;if(q>0){v[map[i]]=(v[map[i]]||0)+q;any=1}});
+    unmapped.forEach(i=>{if((Number(c.q[i])||0)>0)lost.add(S.items[i].n)});
+    if(!any)empty++;
+    rows.push({n:c.n,d:c.d||"",v});
+  });
+  return{rows,skipped:[...lost],empty};
+}
+function exportOrders(){
+  const d=$("date").value;
+  if(!d){uiAlert("اختار التاريخ الأول");return}
+  const dt=new Date(d+"T00:00:00");
+  if(dt.getDay()===5){uiAlert("مفيش تاب في الشيت ليوم الجمعة. اختار يوم تاني.");return}
+  const sat=new Date(dt);sat.setDate(sat.getDate()-((dt.getDay()+1)%7));
+  const days=XL_TABS.map(([nm_],k)=>{
+    const x=new Date(sat);x.setDate(sat.getDate()+k);const key=iso(x);
+    return Object.assign({key,nm:nm_},xlRowsForDay(key));
+  });
+  const total=days.reduce((a,x)=>a+x.rows.length,0);
+  if(!total){uiAlert("لا يوجد عملاء في الأسبوع ده.");return}
+  const big=days.find(x=>x.rows.length>59);
+  if(big){uiAlert("عدد عملاء "+dn(big.key)+" ("+big.rows.length+") أكتر من صفوف الشيت (59). قسّم اليوم على شيتين.");return}
+  const skipped=[...new Set(days.flatMap(x=>x.skipped))],empty=days.reduce((a,x)=>a+x.empty,0);
+  const active=days.findIndex(x=>x.key===d);
+  const go=()=>{
+    const bytes=xlBuildWeek(days,active);
+    downloadFile(bytes,"Orders_week_"+days[0].key+".xlsx","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    const m=$("xlm");m.style.color="var(--ac)";
+    m.textContent="تم إصدار الشيت ✓ — "+days.filter(x=>x.rows.length).map(x=>dn(x.key)+" "+fmt(x.rows.length)).join(" · ")+(skipped.length?" · ⚠️ اتجاهل: "+skipped.join("، "):"");
+  };
+  if(skipped.length||empty){
+    let msg="";
+    if(skipped.length)msg+="الأصناف دي مالهاش عمود في الشيت ومش هتتصدّر: "+skipped.join("، ")+". ";
+    if(empty)msg+=fmt(empty)+" عميل هيظهروا في الشيت من غير كميات. ";
+    uiConfirm(msg+"تكمّل التصدير؟",go,"تنبيه قبل التصدير");
+  }else go();
+}
+$("xlb").addEventListener("click",exportOrders);
+
+
+/* حالات الطلب: 3 مربعات ملونة */
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".stb");if(!b)return;
+  if(b.dataset.f){$("status").value=b.dataset.st;syncRs();return}
+  const rec=S.days[b.dataset.k]&&S.days[b.dataset.k][+b.dataset.i];if(!rec)return;
+  rec.s=b.dataset.st;rec.r="";save();renderFast();
+  if($("sf")&&$("sf").value)renderSearch();
+  refreshCust();
+});
+const _syncRs0=syncRs;
+syncRs=function(){_syncRs0();$("stbx").innerHTML=ST.map(s=>'<button type="button" class="stb'+($("status").value===s?" on":"")+'" data-f="1" data-st="'+s+'" style="--c:'+SC[s]+';--t:'+SCT[s]+'">'+s+'</button>').join("")};
+syncRs();
+if(normSt()){save();render()}
+</script>
+</body>
+</html>
